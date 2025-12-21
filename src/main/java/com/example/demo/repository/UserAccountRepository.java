@@ -1,10 +1,12 @@
 package com.example.demo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.demo.entity.UserAccount;
-import java.util.Optional;
+import org.springframework.stereotype.Repository;
 
-public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
+@Repository
+public class UserAccountRepository {
 
-    Optional<UserAccount> findByUsername(String username);
+    public boolean login(String username, String password) {
+        // temporary logic
+        return "admin".equals(username) && "admin".equals(password);
+    }
 }
