@@ -1,15 +1,12 @@
 package com.example.demo.repository;
 
+import com.example.demo.model.UserAccount;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-import com.example.demo.model.UserAccount;
-
-@Repository
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
 
+    // Used by AuthService & CustomUserDetailsService
     Optional<UserAccount> findByEmail(String email);
-
 }
