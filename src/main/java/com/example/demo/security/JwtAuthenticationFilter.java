@@ -1,16 +1,20 @@
 package com.example.demo.security;
 
 import io.jsonwebtoken.Claims;
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import org.springframework.security.authentication.*;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 @Component
-public class JwtAuthenticationFilter extends GenericFilter {
+public class JwtAuthenticationFilter implements jakarta.servlet.Filter {
 
     private final JwtUtil jwtUtil;
 
@@ -28,11 +32,20 @@ public class JwtAuthenticationFilter extends GenericFilter {
         String header = req.getHeader("Authorization");
 
         if (header != null && header.startsWith("Bearer ")) {
-            Claims claims = jwtUtil.validate(header.substring(7));
-            Authentication auth = new UsernamePasswordAuthenticationToken(
-                    claims.getSubject(), null, null);
-            SecurityContextHolder.getContext().setAuthentication(auth);
+            String token = header.substring(7);
+            Claims claims = jwtUtil.validate(token);
+
+            Authentication authentication =
+                    new UsernamePasswordAuthenticationToken(
+                            claims.getSubject(),
+                            null,
+                            null
+                    );
+
+            SecurityContextHolder.getContext()
+                    .setAuthentication(authentication);
         }
+
         chain.doFilter(request, response);
     }
 }
