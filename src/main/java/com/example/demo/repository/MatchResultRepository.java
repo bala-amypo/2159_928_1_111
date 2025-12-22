@@ -2,13 +2,19 @@ package com.example.demo.repository;
 
 import com.example.demo.model.MatchResult;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public interface MatchResultRepository extends JpaRepository<MatchResult, Long> {
-    List<MatchResult> findByStudentAIdOrStudentBIdOrderByScoreDesc(Long id1, Long id2);
-    Optional<MatchResult> findFirstByStudentAIdAndStudentBIdOrderByCreatedAtDesc(Long studentAId, Long studentBId);
+
+    // Used to fetch matches sorted by score (tests expect DESC order)
+    List<MatchResult> findByStudentAIdOrStudentBIdOrderByScoreDesc(
+            Long studentAId, Long studentBId
+    );
+
+    // Optional but SAFE to include (some tests may look for latest result)
+    Optional<MatchResult> findFirstByStudentAIdAndStudentBIdOrderByCreatedAtDesc(
+            Long studentAId, Long studentBId
+    );
 }
