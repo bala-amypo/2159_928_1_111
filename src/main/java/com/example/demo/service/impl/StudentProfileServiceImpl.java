@@ -1,13 +1,3 @@
-package com.example.demo.service.impl;
-
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
-import com.example.demo.model.StudentProfile;
-import com.example.demo.repository.StudentProfileRepository;
-import com.example.demo.service.StudentProfileService;
-
 @Service
 public class StudentProfileServiceImpl implements StudentProfileService {
 
@@ -15,6 +5,11 @@ public class StudentProfileServiceImpl implements StudentProfileService {
 
     public StudentProfileServiceImpl(StudentProfileRepository repo) {
         this.repo = repo;
+    }
+
+    @Override
+    public StudentProfile getStudentById(Long id) {
+        return repo.findById(id).orElse(null);
     }
 
     @Override
@@ -28,7 +23,7 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
-    public void updateStudentStatus(long id, boolean status) {
+    public void updateStudentStatus(Long id, boolean status) {
         StudentProfile s = repo.findById(id).orElse(null);
         if (s != null) {
             s.setActive(status);
