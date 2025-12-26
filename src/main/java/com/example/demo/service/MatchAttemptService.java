@@ -1,14 +1,14 @@
 package com.example.demo.service;
 
-import com.example.demo.model.MatchAttempt;
+import com.example.demo.model.MatchAttemptRecord;
 import java.util.List;
 import java.util.Optional;
 
 public interface MatchAttemptService {
 
-    MatchAttempt createMatchAttempt(MatchAttempt attempt);
+    MatchAttemptRecord createMatchAttempt(MatchAttemptRecord attempt);
 
-    Optional<MatchAttempt> getMatchAttemptById(Long id);
+    Optional<MatchAttemptRecord> getMatchAttemptById(Long id);
 
-    List<MatchAttempt> getAllMatchAttempts();
+    List<MatchAttemptRecord> getAllMatchAttempts();
 }
