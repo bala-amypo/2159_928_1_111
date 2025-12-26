@@ -1,10 +1,9 @@
 package com.example.demo.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-@RestControllerAdvice
+@ControllerAdvice
 public class ApiExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)

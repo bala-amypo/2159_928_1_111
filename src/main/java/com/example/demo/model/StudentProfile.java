@@ -1,28 +1,41 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class StudentProfile {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     private Long id;
 
-    @OneToOne
-    private UserAccount userAccount;
+    @Column(unique = true)
+    private String studentId;
 
-    private String name;
-    private int age;
-    private String course;
-    private int yearOfStudy;
-    private String gender;
-    private String roomTypePreference;
+    private String fullName;
 
+    @Column(unique = true)
+    private String email;
+
+    private Boolean active = true;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    // getters & setters
     public Long getId() { return id; }
-    public UserAccount getUserAccount() { return userAccount; }
-    public void setUserAccount(UserAccount userAccount) { this.userAccount = userAccount; }
-    public int getAge() { return age; }
-    public void setAge(int age) { this.age = age; }
-    public void setRoomTypePreference(String r) { this.roomTypePreference = r; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getStudentId() { return studentId; }
+    public void setStudentId(String studentId) { this.studentId = studentId; }
+
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
 }
