@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service   // 🔴 THIS IS MANDATORY
+@Service
 public class StudentProfileServiceImpl implements StudentProfileService {
 
     private final StudentProfileRepository repository;
@@ -17,17 +17,17 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
-    public StudentProfile create(StudentProfile profile) {
+    public StudentProfile createStudent(StudentProfile profile) {
         return repository.save(profile);
     }
 
     @Override
-    public StudentProfile getById(Long id) {
+    public StudentProfile getStudentById(Long id) {
         return repository.findById(id).orElse(null);
     }
 
     @Override
-    public List<StudentProfile> getAll() {
+    public List<StudentProfile> getAllStudents() {
         return repository.findAll();
     }
 }
