@@ -8,7 +8,8 @@ public class CompatibilityScoreRecord {
 
     public enum CompatibilityLevel { LOW, MEDIUM, HIGH, EXCELLENT }
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     private Long studentAId;
@@ -21,7 +22,6 @@ public class CompatibilityScoreRecord {
     private LocalDateTime computedAt;
     private String detailsJson;
 
-    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -35,11 +35,11 @@ public class CompatibilityScoreRecord {
     public void setScore(Double score) { this.score = score; }
 
     public CompatibilityLevel getCompatibilityLevel() { return compatibilityLevel; }
-    public void setCompatibilityLevel(CompatibilityLevel compatibilityLevel) { this.compatibilityLevel = compatibilityLevel; }
+    public void setCompatibilityLevel(CompatibilityLevel c) { this.compatibilityLevel = c; }
 
+    public void setComputedAt(LocalDateTime t) { this.computedAt = t; }
     public LocalDateTime getComputedAt() { return computedAt; }
-    public void setComputedAt(LocalDateTime computedAt) { this.computedAt = computedAt; }
 
     public String getDetailsJson() { return detailsJson; }
-    public void setDetailsJson(String detailsJson) { this.detailsJson = detailsJson; }
+    public void setDetailsJson(String d) { this.detailsJson = d; }
 }

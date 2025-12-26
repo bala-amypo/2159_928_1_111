@@ -6,7 +6,8 @@ import java.time.LocalDateTime;
 @Entity
 public class StudentProfile {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     @Column(unique = true)
@@ -17,11 +18,11 @@ public class StudentProfile {
     @Column(unique = true)
     private String email;
 
+    private String department;
+    private Integer yearLevel;
     private Boolean active = true;
-
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -36,6 +37,4 @@ public class StudentProfile {
 
     public Boolean getActive() { return active; }
     public void setActive(Boolean active) { this.active = active; }
-
-    public LocalDateTime getCreatedAt() { return createdAt; }
 }
