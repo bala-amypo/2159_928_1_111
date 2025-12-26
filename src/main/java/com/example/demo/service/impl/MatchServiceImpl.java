@@ -1,10 +1,12 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
 import java.util.List;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
+
 import com.example.demo.model.MatchResult;
+import com.example.demo.service.MatchService;
 
 @Service
 public class MatchServiceImpl implements MatchService {
@@ -21,6 +23,6 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public MatchResult getById(Long matchId) {
-        return new MatchResult(matchId, matchId, 75.0);
+        return new MatchResult(matchId, matchId, 70.0);
     }
 }
