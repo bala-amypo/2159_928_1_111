@@ -2,10 +2,14 @@ package com.example.demo.repository;
 
 import com.example.demo.model.MatchAttemptRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.*;
 
-public interface MatchAttemptRecordRepository extends JpaRepository<MatchAttemptRecord, Long> {
-    List<MatchAttemptRecord> findByInitiatorStudentIdOrCandidateStudentId(Long a, Long b);
-    List<MatchAttemptRecord> findByStudentId(Long studentId);
+import java.util.List;
 
+public interface MatchAttemptRecordRepository
+        extends JpaRepository<MatchAttemptRecord, Long> {
+
+    List<MatchAttemptRecord> findByStudentIdOrTargetStudentId(
+            Long studentId,
+            Long targetStudentId
+    );
 }
