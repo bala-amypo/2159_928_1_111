@@ -1,13 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.model.MatchAttemptRecord;
+import com.example.demo.model.MatchAttempt;
 import java.util.List;
 
 public interface MatchAttemptService {
 
-    MatchAttemptRecord createMatchAttempt(Long initiatorId, Long candidateId);
+    MatchAttempt getMatchAttemptById(Long id);
 
-    MatchAttemptRecord getMatchAttemptById(Long id);
-
-    List<MatchAttemptRecord> getAllMatchAttempts();
+    List<MatchAttempt> getAllMatchAttempts();
 }
