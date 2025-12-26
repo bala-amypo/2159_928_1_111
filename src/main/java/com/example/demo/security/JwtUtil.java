@@ -1,15 +1,25 @@
 package com.example.demo.security;
 
-import org.springframework.stereotype.Component;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.Date;
 
-@Component
 public class JwtUtil {
 
-    public String generateToken(String username) {
-        return "dummy-token";
+    private final String SECRET = "secret";
+
+    public String generateToken(String username, String role, String email, String id) {
+        return Jwts.builder()
+                .setSubject(username)
+                .claim("role", role)
+                .claim("email", email)
+                .claim("id", id)
+                .setIssuedAt(new Date())
+                .signWith(SignatureAlgorithm.HS256, SECRET)
+                .compact();
     }
 
-    public boolean validateToken(String token) {
-        return true;
+    public void validate(String token) {
+        Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token);
     }
 }

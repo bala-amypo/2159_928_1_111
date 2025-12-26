@@ -1,33 +1,28 @@
-package com.example.demo.service.impl;
-
-import com.example.demo.dto.HabitProfileDto;
-import com.example.demo.model.HabitProfile;
-import com.example.demo.service.HabitProfileService;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class HabitProfileServiceImpl implements HabitProfileService {
 
-    @Override
-    public HabitProfile createHabit(HabitProfile habit) {
-        return habit;
+    private final HabitProfileRepository repo;
+
+    public HabitProfileServiceImpl(HabitProfileRepository repo) {
+        this.repo = repo;
     }
 
-    @Override
-    public HabitProfile getHabitById(Long id) {
-        return new HabitProfile();
+    public HabitProfile createOrUpdateHabit(HabitProfile h) {
+        if (h.getStudyHoursPerDay() <= 0)
+            throw new IllegalArgumentException("study hours");
+
+        HabitProfile existing = repo.findByStudentId(h.getStudentId()).orElse(null);
+        if (existing != null) {
+            h.setId(existing.getId());
+        }
+        h.setUpdatedAt(LocalDateTime.now());
+        return repo.save(h);
     }
 
-    @Override
-    public List<HabitProfile> getAllHabits() {
-        return new ArrayList<>();
+    public HabitProfile getHabitByStudent(Long id) {
+        return repo.findByStudentId(id).orElseThrow(() -> new ResourceNotFoundException("not found"));
     }
 
-    @Override
-    public String createOrUpdate(Long studentId, HabitProfileDto dto) {
-        return "Saved";
-    }
+    public Optional<HabitProfile> getHabitById(Long id) { return repo.findById(id); }
+    public List<HabitProfile> getAllHabitProfiles() { return repo.findAll(); }
 }

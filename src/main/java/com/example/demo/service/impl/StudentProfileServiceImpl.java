@@ -1,36 +1,29 @@
-package com.example.demo.service.impl;
-
-import com.example.demo.model.StudentProfile;
-import com.example.demo.service.StudentProfileService;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class StudentProfileServiceImpl implements StudentProfileService {
+    private final StudentProfileRepository repo;
 
-    @Override
-    public StudentProfile createStudent(StudentProfile student) {
-        return student;
+    public StudentProfileServiceImpl(StudentProfileRepository repo) {
+        this.repo = repo;
     }
 
-    @Override
-    public StudentProfile updateStudent(Long id, StudentProfile student) {
-        return student;
+    public StudentProfile createStudent(StudentProfile s) {
+        if (repo.findByStudentId(s.getStudentId()).isPresent())
+            throw new IllegalArgumentException("studentId exists");
+        if (repo.findByEmail(s.getEmail()).isPresent())
+            throw new IllegalArgumentException("studentId exists");
+        return repo.save(s);
     }
 
-    @Override
-    public void deleteStudent(Long id) {
-    }
-
-    @Override
     public StudentProfile getStudentById(Long id) {
-        return new StudentProfile();
+        return repo.findById(id).orElseThrow(() -> new ResourceNotFoundException("not found"));
     }
 
-    @Override
-    public List<StudentProfile> getAllStudents() {
-        return new ArrayList<>();
+    public StudentProfile updateStudentStatus(Long id, boolean active) {
+        StudentProfile s = getStudentById(id);
+        s.setActive(active);
+        return repo.save(s);
     }
+
+    public List<StudentProfile> getAllStudents() { return repo.findAll(); }
+    public Optional<StudentProfile> findByStudentId(String sid) { return repo.findByStudentId(sid); }
 }
