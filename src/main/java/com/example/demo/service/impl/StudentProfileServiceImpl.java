@@ -1,10 +1,9 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.StudentProfile;
 import com.example.demo.repository.StudentProfileRepository;
 import com.example.demo.service.StudentProfileService;
-
+import com.example.demo.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,23 +19,25 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
-    public StudentProfile createOrUpdate(StudentProfile profile) {
-        return repository.save(profile);
+    public StudentProfile createStudent(StudentProfile student) {
+        return repository.save(student);
     }
 
     @Override
-    public StudentProfile getById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
+    public Optional<StudentProfile> getStudentById(Long id) {
+        return repository.findById(id);
     }
 
     @Override
-    public Optional<StudentProfile> findByStudentId(Long studentId) {
-        return repository.findByStudentId(studentId);
-    }
-
-    @Override
-    public List<StudentProfile> getAll() {
+    public List<StudentProfile> getAllStudents() {
         return repository.findAll();
+    }
+
+    @Override
+    public StudentProfile updateStudentStatus(Long id, boolean active) {
+        StudentProfile student = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
+        student.setActive(active);
+        return repository.save(student);
     }
 }
