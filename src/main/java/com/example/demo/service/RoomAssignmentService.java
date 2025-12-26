@@ -7,9 +7,11 @@ public interface RoomAssignmentService {
 
     RoomAssignmentRecord assignRoom(Long studentId, String roomNumber);
 
-    RoomAssignmentRecord getById(Long id);
+    RoomAssignmentRecord updateStatus(Long assignmentId, String status);
 
-    List<RoomAssignmentRecord> getAssignmentsForStudent(Long studentId);
+    RoomAssignmentRecord getAssignmentById(Long id);
+
+    List<RoomAssignmentRecord> getAssignmentsByStudent(Long studentId);
 
     List<RoomAssignmentRecord> getAllAssignments();
 }
