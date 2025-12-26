@@ -1,24 +1,33 @@
+package com.example.demo.service.impl;
+
+import com.example.demo.model.HabitProfile;
+import com.example.demo.repository.HabitProfileRepository;
+import com.example.demo.service.HabitProfileService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class HabitProfileServiceImpl implements HabitProfileService {
 
-    private final HabitProfileRepository habitRepo;
+    private final HabitProfileRepository repo;
 
-    public HabitProfileServiceImpl(HabitProfileRepository habitRepo) {
-        this.habitRepo = habitRepo;
+    public HabitProfileServiceImpl(HabitProfileRepository repo) {
+        this.repo = repo;
     }
 
     @Override
     public HabitProfile getForStudent(Long studentId) {
-        return habitRepo.findByStudentId(studentId).orElse(null);
+        return repo.findByStudentId(studentId).orElse(null);
     }
 
     @Override
-    public HabitProfile save(HabitProfile habit) {
-        return habitRepo.save(habit);
+    public HabitProfile save(HabitProfile habitProfile) {
+        return repo.save(habitProfile);
     }
 
     @Override
     public List<HabitProfile> getAll() {
-        return habitRepo.findAll();
+        return repo.findAll();
     }
 }
