@@ -6,13 +6,11 @@ import java.util.Optional;
 
 public interface StudentProfileService {
 
-    StudentProfile createStudent(StudentProfile student);
+    StudentProfile createOrUpdate(StudentProfile profile);
 
-    StudentProfile getStudentById(Long id);
+    StudentProfile getById(Long id);
 
-    StudentProfile updateStudentStatus(Long id, boolean active);
+    Optional<StudentProfile> findByStudentId(Long studentId);
 
-    List<StudentProfile> getAllStudents();
-
-    Optional<StudentProfile> findByStudentId(String studentId);
+    List<StudentProfile> getAll();
 }
