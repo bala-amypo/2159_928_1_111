@@ -1,46 +1,65 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 public class HabitProfile {
 
-    public enum SleepSchedule { EARLY, REGULAR, LATE }
-    public enum CleanlinessLevel { LOW, MEDIUM, HIGH }
-    public enum NoiseTolerance { LOW, MEDIUM, HIGH }
-    public enum SocialPreference { INTROVERT, BALANCED, EXTROVERT }
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long studentId;
-    private Integer studyHoursPerDay;
 
-    @Enumerated(EnumType.STRING)
-    private SleepSchedule sleepSchedule;
+    private String sleepTime;
 
-    @Enumerated(EnumType.STRING)
-    private CleanlinessLevel cleanlinessLevel;
+    private boolean smoking;
 
-    @Enumerated(EnumType.STRING)
-    private NoiseTolerance noiseTolerance;
+    private boolean drinking;
 
-    @Enumerated(EnumType.STRING)
-    private SocialPreference socialPreference;
+    private boolean studyLateNight;
 
-    private LocalDateTime updatedAt;
+    public Long getId() {
+        return id;
+    }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getStudentId() {
+        return studentId;
+    }
 
-    public Long getStudentId() { return studentId; }
-    public void setStudentId(Long studentId) { this.studentId = studentId; }
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
 
-    public Integer getStudyHoursPerDay() { return studyHoursPerDay; }
-    public void setStudyHoursPerDay(Integer studyHoursPerDay) { this.studyHoursPerDay = studyHoursPerDay; }
+    public String getSleepTime() {
+        return sleepTime;
+    }
 
-    public void setUpdatedAt(LocalDateTime t) { this.updatedAt = t; }
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setSleepTime(String sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+
+    public boolean isSmoking() {
+        return smoking;
+    }
+
+    public void setSmoking(boolean smoking) {
+        this.smoking = smoking;
+    }
+
+    public boolean isDrinking() {
+        return drinking;
+    }
+
+    public void setDrinking(boolean drinking) {
+        this.drinking = drinking;
+    }
+
+    public boolean isStudyLateNight() {
+        return studyLateNight;
+    }
+
+    public void setStudyLateNight(boolean studyLateNight) {
+        this.studyLateNight = studyLateNight;
+    }
 }

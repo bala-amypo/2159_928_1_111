@@ -7,5 +7,5 @@ import java.util.List;
 public interface CompatibilityScoreRecordRepository
         extends JpaRepository<CompatibilityScoreRecord, Long> {
 
-    List<CompatibilityScoreRecord> findByStudentAIdOrStudentBId(Long a, Long b);
+    List<CompatibilityScoreRecord> findByStudent1IdOrStudent2Id(Long s1, Long s2);
 }
