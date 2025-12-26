@@ -23,6 +23,6 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public MatchResult getById(Long matchId) {
-        return new MatchResult(matchId, matchId, 70.0);
+        return new MatchResult(matchId, matchId, 75.0);
     }
 }
