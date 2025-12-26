@@ -1,11 +1,12 @@
 package com.example.demo.service.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.example.demo.model.StudentProfile;
 import com.example.demo.repository.StudentProfileRepository;
 import com.example.demo.service.StudentProfileService;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class StudentProfileServiceImpl implements StudentProfileService {
@@ -17,8 +18,8 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
-    public StudentProfile createStudent(StudentProfile profile) {
-        return repository.save(profile);
+    public StudentProfile createStudent(StudentProfile student) {
+        return repository.save(student);
     }
 
     @Override
