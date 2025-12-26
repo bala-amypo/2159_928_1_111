@@ -1,9 +1,14 @@
-package com.example.demo.dto;
-
 public class AuthResponse {
 
     private int statusCode;
     private String message;
+
+    public AuthResponse() {
+    }
+
+    public AuthResponse(String message) {
+        this.message = message;
+    }
 
     public int getStatusCode() {
         return statusCode;
