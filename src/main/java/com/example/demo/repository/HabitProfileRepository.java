@@ -7,6 +7,5 @@ import java.util.Optional;
 
 public interface HabitProfileRepository extends JpaRepository<HabitProfile, Long> {
 
-    // Ensures one habit profile per student
     Optional<HabitProfile> findByStudentId(Long studentId);
 }

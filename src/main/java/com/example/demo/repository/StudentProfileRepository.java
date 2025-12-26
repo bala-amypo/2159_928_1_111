@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface StudentProfileRepository extends JpaRepository<StudentProfile, Long> {
 
-    // Used when creating profile from userId
-    Optional<StudentProfile> findByUserAccountId(Long userId);
+    Optional<StudentProfile> findByStudentId(String studentId);
+
+    Optional<StudentProfile> findByEmail(String email);
 }
