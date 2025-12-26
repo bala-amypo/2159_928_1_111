@@ -1,13 +1,17 @@
 package com.example.demo.service;
 
-import com.example.demo.model.RoomAssignment;
+import com.example.demo.model.RoomAssignmentRecord;
 import java.util.List;
 
 public interface RoomAssignmentService {
 
-    RoomAssignment assignRoom(RoomAssignment assignment);
+    RoomAssignmentRecord assignRoom(RoomAssignmentRecord record);
 
-    RoomAssignment getById(Long id);
+    RoomAssignmentRecord updateStatus(Long id, String status);
 
-    List<RoomAssignment> getAll();
+    RoomAssignmentRecord getAssignmentById(Long id);
+
+    List<RoomAssignmentRecord> getAssignmentsByStudent(Long studentId);
+
+    List<RoomAssignmentRecord> getAllAssignments();
 }
