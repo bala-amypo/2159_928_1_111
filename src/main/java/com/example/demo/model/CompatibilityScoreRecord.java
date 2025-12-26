@@ -6,40 +6,55 @@ import java.time.LocalDateTime;
 @Entity
 public class CompatibilityScoreRecord {
 
-    public enum CompatibilityLevel { LOW, MEDIUM, HIGH, EXCELLENT }
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long studentAId;
-    private Long studentBId;
-    private Double score;
+    private Long studentA;
 
-    @Enumerated(EnumType.STRING)
-    private CompatibilityLevel compatibilityLevel;
+    private Long studentB;
 
-    private LocalDateTime computedAt;
-    private String detailsJson;
+    private double score;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    private LocalDateTime calculatedAt;
 
-    public Long getStudentAId() { return studentAId; }
-    public void setStudentAId(Long studentAId) { this.studentAId = studentAId; }
+    public Long getId() {
+        return id;
+    }
 
-    public Long getStudentBId() { return studentBId; }
-    public void setStudentBId(Long studentBId) { this.studentBId = studentBId; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Double getScore() { return score; }
-    public void setScore(Double score) { this.score = score; }
+    public Long getStudentA() {
+        return studentA;
+    }
 
-    public CompatibilityLevel getCompatibilityLevel() { return compatibilityLevel; }
-    public void setCompatibilityLevel(CompatibilityLevel c) { this.compatibilityLevel = c; }
+    public void setStudentA(Long studentA) {
+        this.studentA = studentA;
+    }
 
-    public void setComputedAt(LocalDateTime t) { this.computedAt = t; }
-    public LocalDateTime getComputedAt() { return computedAt; }
+    public Long getStudentB() {
+        return studentB;
+    }
 
-    public String getDetailsJson() { return detailsJson; }
-    public void setDetailsJson(String d) { this.detailsJson = d; }
+    public void setStudentB(Long studentB) {
+        this.studentB = studentB;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public LocalDateTime getCalculatedAt() {
+        return calculatedAt;
+    }
+
+    public void setCalculatedAt(LocalDateTime calculatedAt) {
+        this.calculatedAt = calculatedAt;
+    }
 }
