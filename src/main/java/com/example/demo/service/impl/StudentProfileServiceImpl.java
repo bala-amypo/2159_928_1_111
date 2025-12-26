@@ -11,24 +11,33 @@ import com.example.demo.service.StudentProfileService;
 @Service
 public class StudentProfileServiceImpl implements StudentProfileService {
 
-    private final StudentProfileRepository repository;
+    private final StudentProfileRepository repo;
 
-    public StudentProfileServiceImpl(StudentProfileRepository repository) {
-        this.repository = repository;
+    public StudentProfileServiceImpl(StudentProfileRepository repo) {
+        this.repo = repo;
     }
 
     @Override
-    public StudentProfile createStudent(StudentProfile student) {
-        return repository.save(student);
+    public StudentProfile findByStudentId(String studentId) {
+        return repo.findByStudentId(studentId).orElse(null);
     }
 
     @Override
-    public StudentProfile getStudentById(Long id) {
-        return repository.findById(id).orElse(null);
+    public StudentProfile save(StudentProfile student) {
+        return repo.save(student);
+    }
+
+    @Override
+    public void updateStudentStatus(long id, boolean status) {
+        StudentProfile s = repo.findById(id).orElse(null);
+        if (s != null) {
+            s.setActive(status);
+            repo.save(s);
+        }
     }
 
     @Override
     public List<StudentProfile> getAllStudents() {
-        return repository.findAll();
+        return repo.findAll();
     }
 }
