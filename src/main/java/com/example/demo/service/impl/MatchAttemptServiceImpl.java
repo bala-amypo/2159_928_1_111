@@ -18,13 +18,27 @@ public class MatchAttemptServiceImpl implements MatchAttemptService {
     }
 
     @Override
-    public MatchAttemptRecord createMatchAttempt(MatchAttemptRecord attempt) {
+    public MatchAttemptRecord logMatchAttempt(MatchAttemptRecord attempt) {
         return repository.save(attempt);
+    }
+
+    @Override
+    public MatchAttemptRecord updateAttemptStatus(Long attemptId, String status) {
+        MatchAttemptRecord record = repository.findById(attemptId)
+                .orElseThrow(() -> new RuntimeException("MatchAttempt not found"));
+
+        record.setStatus(status);
+        return repository.save(record);
     }
 
     @Override
     public Optional<MatchAttemptRecord> getMatchAttemptById(Long id) {
         return repository.findById(id);
+    }
+
+    @Override
+    public List<MatchAttemptRecord> getAttemptsByStudent(Long studentId) {
+        return repository.findByStudentIdOrTargetStudentId(studentId, studentId);
     }
 
     @Override
