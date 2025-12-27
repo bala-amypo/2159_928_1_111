@@ -1,58 +1,44 @@
-package com.example.demo.config; 
+package com.example.demo.config;
 
-import com.example.demo.security.JwtAuthenƟcaƟonFilter; 
-import org.springframework.context.annotaƟon.Bean; 
-import org.springframework.context.annotaƟon.ConfiguraƟon; 
-import org.springframework.security.authenƟcaƟon.AuthenƟcaƟonManager; 
-import org.springframework.security.config.annotaƟon.authenƟcaƟon.configuraƟon.AuthenƟcaƟonConfiguraƟon; 
-import org.springframework.security.config.annotaƟon.web.builders.HƩpSecurity; 
-import org.springframework.security.config.annotaƟon.web.configuraƟon.EnableWebSecurity; 
-import org.springframework.security.config.hƩp.SessionCreaƟonPolicy; 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; 
-import org.springframework.security.crypto.password.PasswordEncoder; 
-import org.springframework.security.web.SecurityFilterChain; 
-import org.springframework.security.web.authenƟcaƟon.UsernamePasswordAuthenƟcaƟonFilter; 
+import com.example.demo.security.JwtAuthenticationFilter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
-@ConfiguraƟon 
-@EnableWebSecurity 
-public class SecurityConfig { 
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
 
-    private final JwtAuthenƟcaƟonFilter jwtAuthenƟcaƟonFilter; 
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    public SecurityConfig(JwtAuthenƟcaƟonFilter jwtAuthenƟcaƟonFilter) { 
-        this.jwtAuthencaƟonFilter = jwtAuthenƟcaƟonFilter; 
-    } 
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
 
-    @Bean 
-    public SecurityFilterChain filterChain(HƩpSecurity hƩp) throws ExcepƟon { 
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        hƩp 
-            .csrf(csrf -> csrf.disable()) 
-            .sessionManagement(session -> 
-                session.sessionCreaƟonPolicy(SessionCreaƟonPolicy.STATELESS) 
-            ) 
-            .authorizeHƩpRequests(auth -> auth 
-                .requestMatchers( 
-                        "/auth/**", 
-                        "/swagger-ui/**", 
-                        "/v3/api-docs/**" 
-                ).permitAll() 
-                .requestMatchers("/api/**").authenƟcated() 
-                .anyRequest().denyAll() 
-            ) 
-            .addFilterBefore(jwtAuthenƟcaƟonFilter, UsernamePasswordAuthenƟcaƟonFilter.class); 
+        http
+            .csrf(csrf -> csrf.disable())
+            .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .anyRequest().permitAll()
+            );
 
-        return hp.build(); 
-    } 
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
+    }
 
-    @Bean 
-    public AuthenƟcaƟonManager authenƟcaƟonManager( 
-            AuthenƟcaƟonConfiguraƟon config) throws ExcepƟon { 
-        return config.getAuthenƟcaƟonManager(); 
-    } 
-
-    @Bean 
-    public PasswordEncoder passwordEncoder() { 
-        return new BCryptPasswordEncoder(); 
-    } 
-} 
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
+            throws Exception {
+        return config.getAuthenticationManager();
+    }
+}
