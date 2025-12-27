@@ -1,10 +1,8 @@
-package com.example.demo.service;
+package com.example.demo.service; 
 
-import com.example.demo.model.CompatibilityScoreRecord;
-import java.util.List;
+import com.example.demo.model.CompatibilityScoreRecord; 
 
-public interface CompatibilityScoreService {
-    CompatibilityScoreRecord saveScore(CompatibilityScoreRecord scoreRecord);
-    List<CompatibilityScoreRecord> getAllScores(Long studentId);
-    CompatibilityScoreRecord getScoreById(Long id);
-}
+public interface CompatibilityScoreService { 
+
+    CompatibilityScoreRecord saveScore(CompatibilityScoreRecord record); 
+} 

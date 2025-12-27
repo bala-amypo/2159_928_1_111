@@ -1,37 +1,47 @@
-package com.example.demo.service.impl;
+package com.example.demo.service.impl; 
 
-import com.example.demo.model.StudentProfile;
-import com.example.demo.repository.StudentProfileRepository;
-import com.example.demo.service.StudentProfileService;
-import org.springframework.stereotype.Service;
-import java.util.List;
+import com.example.demo.exception.ResourceNotFoundException; 
+import com.example.demo.model.StudentProfile; 
+import com.example.demo.repository.StudentProfileRepository; 
+import com.example.demo.service.StudentProfileService; 
+import org.springframework.stereotype.Service; 
 
-@Service
-public class StudentProfileServiceImpl implements StudentProfileService {
+import java.uƟl.List; 
 
-    private final StudentProfileRepository repo;
+@Service 
+public class StudentProfileServiceImpl implements StudentProfileService { 
 
-    public StudentProfileServiceImpl(StudentProfileRepository repo) {
-        this.repo = repo;
-    }
+    private final StudentProfileRepository studentRepo; 
 
-    @Override
-    public StudentProfile createStudent(StudentProfile student) {
-        return repo.save(student);
-    }
+    public StudentProfileServiceImpl(StudentProfileRepository studentRepo) { 
+        this.studentRepo = studentRepo; 
+    } 
 
-    @Override
-    public StudentProfile updateStudent(StudentProfile student) {
-        return repo.save(student);
-    }
+    @Override 
+    public StudentProfile createStudent(StudentProfile student) { 
+        return studentRepo.save(student); 
+    } 
 
-    @Override
-    public StudentProfile getStudentById(Long id) {
-        return repo.findById(id).orElse(null);
-    }
+    @Override 
+    public StudentProfile getStudentById(Long id) { 
+        return studentRepo.findById(id) 
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found")); 
+    } 
 
-    @Override
-    public List<StudentProfile> getAllStudents() {
-        return repo.findAll();
-    }
-}
+    @Override 
+    public List<StudentProfile> getAllStudents() { 
+        return studentRepo.findAll(); 
+    } 
+
+    @Override 
+    public StudentProfile updateStudentStatus(Long id, Boolean acƟve) { 
+        StudentProfile student = getStudentById(id); 
+        student.setAcƟve(acƟve); 
+        return studentRepo.save(student); 
+    } 
+
+    @Override 
+    public java.uƟl.OpƟonal<StudentProfile> findByStudentId(String studentId) { 
+        return studentRepo.findByStudentId(studentId); 
+    } 
+} 
