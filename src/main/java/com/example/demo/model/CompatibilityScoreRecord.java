@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 @Entity
 public class CompatibilityScoreRecord {
 
+    public enum CompatibilityLevel { POOR, AVERAGE, GOOD, EXCELLENT }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,12 +16,22 @@ public class CompatibilityScoreRecord {
     private int score;
 
     @Enumerated(EnumType.STRING)
-    private CompatibilityLevel compatibilityLevel;
+    private CompatibilityLevel level;
 
-    public enum CompatibilityLevel { LOW, MEDIUM, HIGH }
+    private String detailsJson;
 
+    public CompatibilityScoreRecord() {}
+    public CompatibilityScoreRecord(Long studentAId, Long studentBId, int score,
+                                    CompatibilityLevel level, String detailsJson) {
+        this.studentAId = studentAId;
+        this.studentBId = studentBId;
+        this.score = score;
+        this.level = level;
+        this.detailsJson = detailsJson;
+    }
+
+    // Getters & Setters
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
 
     public Long getStudentAId() { return studentAId; }
     public void setStudentAId(Long studentAId) { this.studentAId = studentAId; }
@@ -30,8 +42,9 @@ public class CompatibilityScoreRecord {
     public int getScore() { return score; }
     public void setScore(int score) { this.score = score; }
 
-    public CompatibilityLevel getCompatibilityLevel() { return compatibilityLevel; }
-    public void setCompatibilityLevel(CompatibilityLevel compatibilityLevel) {
-        this.compatibilityLevel = compatibilityLevel;
-    }
+    public CompatibilityLevel getLevel() { return level; }
+    public void setLevel(CompatibilityLevel level) { this.level = level; }
+
+    public String getDetailsJson() { return detailsJson; }
+    public void setDetailsJson(String detailsJson) { this.detailsJson = detailsJson; }
 }
