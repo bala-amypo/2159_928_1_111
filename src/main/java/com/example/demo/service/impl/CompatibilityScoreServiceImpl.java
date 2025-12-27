@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CompatibilityScoreServiceImpl implements CompatibilityScoreService {
@@ -21,12 +20,12 @@ public class CompatibilityScoreServiceImpl implements CompatibilityScoreService 
     }
 
     @Override
-    public List<CompatibilityScoreRecord> getScoresByStudentId(Long studentId) {
+    public List<CompatibilityScoreRecord> getAllScores(Long studentId) {
         return repo.findByStudentAIdOrStudentBId(studentId, studentId);
     }
 
     @Override
-    public Optional<CompatibilityScoreRecord> getScoreById(Long id) {
-        return repo.findById(id);
+    public CompatibilityScoreRecord getScoreById(Long id) {
+        return repo.findById(id).orElse(null);
     }
 }

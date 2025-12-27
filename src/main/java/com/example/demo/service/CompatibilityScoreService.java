@@ -4,9 +4,7 @@ import com.example.demo.model.CompatibilityScoreRecord;
 import java.util.List;
 
 public interface CompatibilityScoreService {
-    CompatibilityScoreRecord createScore(CompatibilityScoreRecord score);
-    CompatibilityScoreRecord updateScore(CompatibilityScoreRecord score);
+    CompatibilityScoreRecord saveScore(CompatibilityScoreRecord scoreRecord);
+    List<CompatibilityScoreRecord> getAllScores(Long studentId);
     CompatibilityScoreRecord getScoreById(Long id);
-    List<CompatibilityScoreRecord> getScoresForStudent(Long studentId);
-    List<CompatibilityScoreRecord> getAllScores();
 }
