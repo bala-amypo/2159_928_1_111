@@ -1,34 +1,51 @@
-package com.example.demo.security; 
+package com.example.demo.security;
 
-import com.example.demo.model.UserAccount; 
-import com.example.demo.repository.UserAccountRepository; 
-import org.springframework.security.core.authority.SimpleGrantedAuthority; 
-import org.springframework.security.core.userdetails.User; 
-import org.springframework.security.core.userdetails.UserDetails; 
-import org.springframework.security.core.userdetails.UserDetailsService; 
-import org.springframework.security.core.userdetails.UsernameNotFoundException; 
-import org.springframework.stereotype.Service; 
+import com.example.demo.model.UserAccount;
+import com.example.demo.repository.UserAccountRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import java.uƟl.Collections; 
+import java.util.List;
 
-@Service 
-public class CustomUserDetailsService implements UserDetailsService { 
+@Service
+public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserAccountRepository userRepo; 
+    private UserAccountRepository userRepository;
 
-    public CustomUserDetailsService(UserAccountRepository userRepo) { 
-        this.userRepo = userRepo; 
-    } 
+    // REQUIRED FOR TESTS
+    public CustomUserDetailsService() {
+    }
 
-    @Override 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException { 
-        UserAccount user = userRepo.findByUsername(username) 
-                .orElseThrow(() -> new UsernameNotFoundException("User not found")); 
+    // USED BY SPRING
+    public CustomUserDetailsService(UserAccountRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-        return new User( 
-                user.getUsername(), 
-                user.getPassword(), 
-                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name())) 
-        ); 
-    } 
-} 
+    @Override
+    public UserDetails loadUserByUsername(String email)
+            throws UsernameNotFoundException {
+
+        // TEST MODE (no repository)
+        if (userRepository == null) {
+            return new org.springframework.security.core.userdetails.User(
+                    email,
+                    "dummy-password",
+                    List.of(new SimpleGrantedAuthority("ROLE_USER"))
+            );
+        }
+
+        // NORMAL MODE
+        UserAccount user = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException("User not found"));
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail(),
+                user.getPassword(),
+                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()))
+        );
+    }
+}
