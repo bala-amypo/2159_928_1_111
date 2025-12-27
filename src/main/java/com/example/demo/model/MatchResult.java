@@ -1,7 +1,9 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class MatchResult {
@@ -10,50 +12,47 @@ public class MatchResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private StudentProfile studentA;
-
-    @ManyToOne
-    private StudentProfile studentB;
-
-    private Double score;
-
-    private String reasonSummary;
-
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private Long studentAId;
+    private Long studentBId;
+    private Integer compatibilityScore;
+    private String status;
 
     public MatchResult() {
-    }
-
-    public MatchResult(StudentProfile studentA, StudentProfile studentB,
-                       Double score, String reasonSummary) {
-        this.studentA = studentA;
-        this.studentB = studentB;
-        this.score = score;
-        this.reasonSummary = reasonSummary;
     }
 
     public Long getId() {
         return id;
     }
 
-    public StudentProfile getStudentA() {
-        return studentA;
+    public Long getStudentAId() {
+        return studentAId;
     }
 
-    public StudentProfile getStudentB() {
-        return studentB;
+    public void setStudentAId(Long studentAId) {
+        this.studentAId = studentAId;
     }
 
-    public Double getScore() {
-        return score;
+    public Long getStudentBId() {
+        return studentBId;
     }
 
-    public String getReasonSummary() {
-        return reasonSummary;
+    public void setStudentBId(Long studentBId) {
+        this.studentBId = studentBId;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public Integer getCompatibilityScore() {
+        return compatibilityScore;
+    }
+
+    public void setCompatibilityScore(Integer compatibilityScore) {
+        this.compatibilityScore = compatibilityScore;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
