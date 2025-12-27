@@ -1,23 +1,34 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "compatibility_scores")
 public class CompatibilityScoreRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long studentOneId;
-    private Long studentTwoId;
+    private Long studentAId;
+    private Long studentBId;
+
     private Double score;
 
-    public CompatibilityScoreRecord() {
+    @Enumerated(EnumType.STRING)
+    private CompatibilityLevel compatibilityLevel;
+
+    private LocalDateTime computedAt;
+
+    @Column(columnDefinition = "TEXT")
+    private String detailsJson;
+
+    public enum CompatibilityLevel {
+        POOR, FAIR, GOOD, EXCELLENT
     }
+
+    // ===== getters & setters =====
 
     public Long getId() {
         return id;
@@ -27,20 +38,20 @@ public class CompatibilityScoreRecord {
         this.id = id;
     }
 
-    public Long getStudentOneId() {
-        return studentOneId;
+    public Long getStudentAId() {
+        return studentAId;
     }
 
-    public void setStudentOneId(Long studentOneId) {
-        this.studentOneId = studentOneId;
+    public void setStudentAId(Long studentAId) {
+        this.studentAId = studentAId;
     }
 
-    public Long getStudentTwoId() {
-        return studentTwoId;
+    public Long getStudentBId() {
+        return studentBId;
     }
 
-    public void setStudentTwoId(Long studentTwoId) {
-        this.studentTwoId = studentTwoId;
+    public void setStudentBId(Long studentBId) {
+        this.studentBId = studentBId;
     }
 
     public Double getScore() {
@@ -49,5 +60,29 @@ public class CompatibilityScoreRecord {
 
     public void setScore(Double score) {
         this.score = score;
+    }
+
+    public CompatibilityLevel getCompatibilityLevel() {
+        return compatibilityLevel;
+    }
+
+    public void setCompatibilityLevel(CompatibilityLevel compatibilityLevel) {
+        this.compatibilityLevel = compatibilityLevel;
+    }
+
+    public LocalDateTime getComputedAt() {
+        return computedAt;
+    }
+
+    public void setComputedAt(LocalDateTime computedAt) {
+        this.computedAt = computedAt;
+    }
+
+    public String getDetailsJson() {
+        return detailsJson;
+    }
+
+    public void setDetailsJson(String detailsJson) {
+        this.detailsJson = detailsJson;
     }
 }

@@ -1,25 +1,30 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "match_attempts")
 public class MatchAttemptRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
-    private LocalDateTime attemptedAt;
-    private Boolean success;
+    private Long initiatorStudentId;
+    private Long candidateStudentId;
 
-    public MatchAttemptRecord() {
+    private Long resultScoreId;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    public enum Status {
+        PENDING_REVIEW,
+        MATCHED,
+        REJECTED
     }
+
+    // ===== getters & setters =====
 
     public Long getId() {
         return id;
@@ -29,27 +34,35 @@ public class MatchAttemptRecord {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getInitiatorStudentId() {
+        return initiatorStudentId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setInitiatorStudentId(Long initiatorStudentId) {
+        this.initiatorStudentId = initiatorStudentId;
     }
 
-    public LocalDateTime getAttemptedAt() {
-        return attemptedAt;
+    public Long getCandidateStudentId() {
+        return candidateStudentId;
     }
 
-    public void setAttemptedAt(LocalDateTime attemptedAt) {
-        this.attemptedAt = attemptedAt;
+    public void setCandidateStudentId(Long candidateStudentId) {
+        this.candidateStudentId = candidateStudentId;
     }
 
-    public Boolean getSuccess() {
-        return success;
+    public Long getResultScoreId() {
+        return resultScoreId;
     }
 
-    public void setSuccess(Boolean success) {
-        this.success = success;
+    public void setResultScoreId(Long resultScoreId) {
+        this.resultScoreId = resultScoreId;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

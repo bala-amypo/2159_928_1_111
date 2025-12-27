@@ -1,25 +1,26 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "student_profiles")
 public class StudentProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private Integer age;
-    private String gender;
-    private String course;
-    private String preferences;
+    @Column(unique = true, nullable = false)
+    private String studentId;
 
-    public StudentProfile() {
-    }
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    private String fullName;
+
+    private Boolean active = true;
+
+    // ===== getters & setters =====
 
     public Long getId() {
         return id;
@@ -29,43 +30,35 @@ public class StudentProfile {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getGender() {
-        return gender;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getCourse() {
-        return course;
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
-    }
-
-    public String getPreferences() {
-        return preferences;
-    }
-
-    public void setPreferences(String preferences) {
-        this.preferences = preferences;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
