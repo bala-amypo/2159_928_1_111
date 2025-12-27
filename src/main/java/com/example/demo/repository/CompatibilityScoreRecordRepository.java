@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface CompatibilityScoreRecordRepository
         extends JpaRepository<CompatibilityScoreRecord, Long> {
 
-    Optional<CompatibilityScoreRecord> findByStudentAIdAndStudentBId(
-            Long studentAId, Long studentBId);
+    Optional<CompatibilityScoreRecord>
+    findByStudentAIdAndStudentBId(Long studentAId, Long studentBId);
 
-    List<CompatibilityScoreRecord> findByStudentAIdOrStudentBId(
-            Long id1, Long id2);
+    List<CompatibilityScoreRecord>
+    findByStudentAIdOrStudentBId(Long id1, Long id2);
 }

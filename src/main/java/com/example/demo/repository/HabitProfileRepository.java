@@ -7,8 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface HabitProfileRepository
-        extends JpaRepository<HabitProfile, Long> {
+public interface HabitProfileRepository extends JpaRepository<HabitProfile, Long> {
 
     Optional<HabitProfile> findByStudentId(Long studentId);
 }
