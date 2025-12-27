@@ -1,44 +1,49 @@
 package com.example.demo.controller; 
- 
-import com.example.demo.model.HabitProfile; 
-import com.example.demo.service.HabitProfileService; 
-import org.springframework.h p.ResponseEn ty; 
-import org.springframework.web.bind.annota on.*; 
- 
-import java.u l.List; 
- 
+
+import com.example.demo.model.MatchAƩemptRecord; 
+import com.example.demo.service.MatchAƩemptService; 
+import org.springframework.hƩp.ResponseEnƟty; 
+import org.springframework.web.bind.annotaƟon.*; 
+
+import java.uƟl.List; 
+
 @RestController 
-@RequestMapping("/api/habits") 
-public class HabitProfileController { 
+@RequestMapping("/api/match-aƩempts") 
+public class MatchAƩemptController { 
      
-    private final HabitProfileService habitService; 
- 
-    public HabitProfileController(HabitProfileService habitService) { 
-        this.habitService = habitService; 
+    private final MatchAƩemptService aƩemptService; 
+
+    public MatchAƩemptController(MatchAƩemptService aƩemptService) { 
+        this.aƩemptService = aƩemptService; 
     } 
- 
+
     @PostMapping 
-    public ResponseEn ty<HabitProfile> create(@RequestBody HabitProfile habit) { 
-        HabitProfile created = habitService.createOrUpdateHabit(habit); 
-        return ResponseEn ty.ok(created); 
+    public ResponseEnƟty<MatchAƩemptRecord> log(@RequestBody MatchAƩemptRecord aƩempt) { 
+        MatchAƩemptRecord logged = aƩemptService.logMatchAƩempt(aƩempt); 
+        return ResponseEnƟty.ok(logged); 
     } 
- 
+
+    @PutMapping("/{id}/status") 
+    public ResponseEnƟty<MatchAƩemptRecord> updateStatus(@PathVariable Long id, @RequestParam String status) { 
+        MatchAƩemptRecord updated = aƩemptService.updateAƩemptStatus(id, status); 
+        return ResponseEnƟty.ok(updated); 
+    } 
+
     @GetMapping("/student/{studentId}") 
-    public ResponseEn ty<HabitProfile> getByStudent(@PathVariable Long studentId) { 
-        HabitProfile habit = habitService.getHabitByStudent(studentId); 
-        return ResponseEn ty.ok(habit); 
+    public ResponseEnƟty<List<MatchAƩemptRecord>> getByStudent(@PathVariable Long studentId) { 
+        List<MatchAƩemptRecord> aƩempts = aƩemptService.getAƩemptsByStudent(studentId); 
+        return ResponseEnƟty.ok(aƩempts); 
     } 
- 
+
     @GetMapping("/{id}") 
-    public ResponseEn ty<HabitProfile> getById(@PathVariable Long id) { 
-        return habitService.getHabitById(id) 
-                .map(ResponseEn ty::ok) 
-                .orElse(ResponseEn ty.notFound().build()); 
+    public ResponseEnƟty<MatchAƩemptRecord> getById(@PathVariable Long id) { 
+        MatchAƩemptRecord aƩempt = aƩemptService.getAƩemptById(id); 
+        return ResponseEnƟty.ok(aƩempt); 
     } 
- 
+
     @GetMapping 
-    public ResponseEn ty<List<HabitProfile>> getAll() { 
-        List<HabitProfile> habits = habitService.getAllHabitProfiles(); 
-        return ResponseEn ty.ok(habits); 
+    public ResponseEnƟty<List<MatchAƩemptRecord>> getAll() { 
+        List<MatchAƩemptRecord> aƩempts = aƩemptService.getAllMatchAƩempts(); 
+        return ResponseEnƟty.ok(aƩempts); 
     } 
-}
+} 

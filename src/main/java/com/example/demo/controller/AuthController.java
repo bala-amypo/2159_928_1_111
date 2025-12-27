@@ -1,40 +1,47 @@
-package com.example.demo.config; 
- 
-import io.swagger.v3.oas.models.OpenAPI; 
-import io.swagger.v3.oas.models.info.Info; 
-import io.swagger.v3.oas.models.servers.Server; 
-import io.swagger.v3.oas.models.security.SecurityRequirement; 
-import io.swagger.v3.oas.models.security.SecurityScheme; 
-import org.springframework.context.annota on.Bean; 
-import org.springframework.context.annota on.Configura on; 
- 
-import java.u l.List; 
- 
-@Configura on 
-public class SwaggerConfig { 
- 
-    private sta c final String SECURITY_SCHEME_NAME = "BearerAuth"; 
- 
-    @Bean 
-    public OpenAPI api() { 
-        return new OpenAPI() 
-                .servers(List.of( 
-                        new Server() 
-                                .url("h ps://9096.32procr.amypo.ai") 
-                                .descrip on("Local Development Server") 
-                )) 
-                .addSecurityItem(new SecurityRequirement().addList(SECURITY_SCHEME_NAME)) 
-                .components(new io.swagger.v3.oas.models.Components() 
-                        .addSecuritySchemes(SECURITY_SCHEME_NAME, 
-                                new SecurityScheme() 
-                                        .name("Authoriza on") 
-                                        .type(SecurityScheme.Type.HTTP) 
-                                        .scheme("bearer") 
-                                        .bearerFormat("JWT") 
-                        )) 
-                .info(new Info() 
-                        . tle("Hostel Roommate Compa bility Matcher API") 
-                        .descrip on("API for matching hostel roommates based on compa bility") 
-                        .version("1.0")); 
+package com.example.demo.controller; 
+
+import com.example.demo.dto.AuthRequest; 
+import com.example.demo.security.JwtUƟl; 
+import org.springframework.hƩp.ResponseEnƟty; 
+import org.springframework.web.bind.annotaƟon.*; 
+import com.example.demo.repository.UserAccountRepository; 
+
+import java.uƟl.HashMap; 
+import java.uƟl.Map; 
+
+@RestController 
+@RequestMapping("/auth") 
+public class AuthController { 
+     
+    private final JwtUƟl jwtUƟl; 
+    private final Map<String, String> users = new HashMap<>(); 
+
+    public AuthController(JwtUƟl jwtUƟl) { 
+        this.jwtUƟl = jwtUƟl; 
     } 
-}
+
+    @PostMapping("/register") 
+    public ResponseEnƟty<?> register(@RequestBody AuthRequest request) { 
+        if (users.containsKey(request.getUsername())) { 
+            return ResponseEnƟty.badRequest().body("User already exists"); 
+        } 
+
+        users.put(request.getUsername(), request.getPassword()); 
+        String token = jwtUƟl.generateToken(request.getUsername(),  
+                request.getRole() != null ? request.getRole() : "USER",  
+                request.getEmail(), "1"); 
+        return ResponseEnƟty.ok(Map.of("token", token)); 
+    } 
+
+    @PostMapping("/login") 
+    public ResponseEnƟty<?> login(@RequestBody AuthRequest request) { 
+        String storedPassword = users.get(request.getUsername()); 
+        if (storedPassword == null || !storedPassword.equals(request.getPassword())) { 
+            return ResponseEnƟty.status(401).body("Invalid credenƟals"); 
+        } 
+         
+        String token = jwtUƟl.generateToken(request.getUsername(), "USER",  
+                request.getEmail(), "1"); 
+        return ResponseEnƟty.ok(Map.of("token", token)); 
+    } 
+} 

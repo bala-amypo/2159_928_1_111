@@ -1,44 +1,44 @@
 package com.example.demo.controller; 
- 
+
 import com.example.demo.model.HabitProfile; 
 import com.example.demo.service.HabitProfileService; 
-import org.springframework.h p.ResponseEn ty; 
-import org.springframework.web.bind.annota on.*; 
- 
-import java.u l.List; 
- 
+import org.springframework.hƩp.ResponseEnƟty; 
+import org.springframework.web.bind.annotaƟon.*; 
+
+import java.uƟl.List; 
+
 @RestController 
 @RequestMapping("/api/habits") 
 public class HabitProfileController { 
      
     private final HabitProfileService habitService; 
- 
+
     public HabitProfileController(HabitProfileService habitService) { 
         this.habitService = habitService; 
     } 
- 
+
     @PostMapping 
-    public ResponseEn ty<HabitProfile> create(@RequestBody HabitProfile habit) { 
+    public ResponseEnƟty<HabitProfile> create(@RequestBody HabitProfile habit) { 
         HabitProfile created = habitService.createOrUpdateHabit(habit); 
-        return ResponseEn ty.ok(created); 
+        return ResponseEnƟty.ok(created); 
     } 
- 
+
     @GetMapping("/student/{studentId}") 
-    public ResponseEn ty<HabitProfile> getByStudent(@PathVariable Long studentId) { 
+    public ResponseEnƟty<HabitProfile> getByStudent(@PathVariable Long studentId) { 
         HabitProfile habit = habitService.getHabitByStudent(studentId); 
-        return ResponseEn ty.ok(habit); 
+        return ResponseEnƟty.ok(habit); 
     } 
- 
+
     @GetMapping("/{id}") 
-    public ResponseEn ty<HabitProfile> getById(@PathVariable Long id) { 
+    public ResponseEnƟty<HabitProfile> getById(@PathVariable Long id) { 
         return habitService.getHabitById(id) 
-                .map(ResponseEn ty::ok) 
-                .orElse(ResponseEn ty.notFound().build()); 
+                .map(ResponseEnƟty::ok) 
+                .orElse(ResponseEnƟty.notFound().build()); 
     } 
- 
+
     @GetMapping 
-    public ResponseEn ty<List<HabitProfile>> getAll() { 
+    public ResponseEnƟty<List<HabitProfile>> getAll() { 
         List<HabitProfile> habits = habitService.getAllHabitProfiles(); 
-        return ResponseEn ty.ok(habits); 
+        return ResponseEnƟty.ok(habits); 
     } 
-}
+} 
