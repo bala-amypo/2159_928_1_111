@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class HabitProfile {
@@ -8,6 +9,9 @@ public class HabitProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    // ✅ REQUIRED BY SERVICE & TESTS
+    private Long studentId;
 
     private Integer studyHoursPerDay;
 
@@ -29,6 +33,9 @@ public class HabitProfile {
     private Boolean drinking;
     private String sleepTime;
     private String wakeTime;
+
+    // ✅ REQUIRED BY SERVICE
+    private LocalDateTime updatedAt;
 
     // ================= ENUMS REQUIRED BY TESTS =================
 
@@ -56,6 +63,18 @@ public class HabitProfile {
     }
 
     // ================= GETTERS & SETTERS =================
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
 
     public Integer getStudyHoursPerDay() {
         return studyHoursPerDay;
@@ -143,5 +162,13 @@ public class HabitProfile {
 
     public void setWakeTime(String wakeTime) {
         this.wakeTime = wakeTime;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
