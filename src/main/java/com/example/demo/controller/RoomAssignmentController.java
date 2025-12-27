@@ -2,21 +2,25 @@ package com.example.demo.controller;
 
 import com.example.demo.model.RoomAssignmentRecord;
 import com.example.demo.service.RoomAssignmentService;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/rooms")
+@RequestMapping("/room")
 public class RoomAssignmentController {
 
-    private final RoomAssignmentService service;
-
-    public RoomAssignmentController(RoomAssignmentService service) {
-        this.service = service;
-    }
+    @Autowired
+    private RoomAssignmentService service;
 
     @PostMapping("/assign")
-    public ResponseEntity<RoomAssignmentRecord> assign(@RequestBody RoomAssignmentRecord r) {
-        return ResponseEntity.ok(service.assignRoom(r));
+    public RoomAssignmentRecord assignRoom(@RequestBody RoomAssignmentRecord record) {
+        return service.assignRoom(record);
+    }
+
+    @GetMapping("/student/{id}")
+    public List<RoomAssignmentRecord> getAssignmentsByStudent(@PathVariable Long id) {
+        return service.getAssignmentsByStudent(id);
     }
 }
