@@ -2,39 +2,40 @@ package com.example.demo.controller;
 
 import com.example.demo.model.HabitProfile;
 import com.example.demo.service.HabitProfileService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/habit-profiles")
+@RequestMapping("/habits")
 public class HabitProfileController {
 
-    @Autowired
-    private HabitProfileService habitProfileService;
+    private final HabitProfileService service;
+
+    public HabitProfileController(HabitProfileService service) {
+        this.service = service;
+    }
 
     @PostMapping
-    public ResponseEntity<HabitProfile> createHabitProfile(@RequestBody HabitProfile habitProfile) {
-        return ResponseEntity.ok(habitProfileService.createHabitProfile(habitProfile));
+    public ResponseEntity<HabitProfile> createOrUpdate(@RequestBody HabitProfile habit) {
+        return ResponseEntity.ok(service.createOrUpdateHabit(habit));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<HabitProfile> getHabitProfile(@PathVariable Long id) {
-        return habitProfileService.getHabitProfileById(id)
+    public ResponseEntity<HabitProfile> getById(@PathVariable Long id) {
+        return service.getHabitById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping
-    public ResponseEntity<List<HabitProfile>> getAllHabitProfiles() {
-        return ResponseEntity.ok(habitProfileService.getAllHabitProfiles());
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<HabitProfile> getByStudent(@PathVariable Long studentId) {
+        return ResponseEntity.ok(service.getHabitByStudent(studentId));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteHabitProfile(@PathVariable Long id) {
-        habitProfileService.deleteHabitProfile(id);
-        return ResponseEntity.noContent().build();
+    @GetMapping
+    public ResponseEntity<List<HabitProfile>> getAll() {
+        return ResponseEntity.ok(service.getAllHabitProfiles());
     }
 }

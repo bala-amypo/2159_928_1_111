@@ -2,44 +2,41 @@ package com.example.demo.controller;
 
 import com.example.demo.model.StudentProfile;
 import com.example.demo.service.StudentProfileService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/student-profiles")
+@RequestMapping("/students")
 public class StudentProfileController {
 
-    @Autowired
-    private StudentProfileService studentProfileService;
+    private final StudentProfileService service;
+
+    public StudentProfileController(StudentProfileService service) {
+        this.service = service;
+    }
 
     @PostMapping
-    public ResponseEntity<StudentProfile> createStudentProfile(
-            @RequestBody StudentProfile studentProfile) {
-        return ResponseEntity.ok(
-                studentProfileService.createStudentProfile(studentProfile)
-        );
+    public ResponseEntity<StudentProfile> create(@RequestBody StudentProfile student) {
+        return ResponseEntity.ok(service.createStudent(student));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentProfile> getStudentProfile(@PathVariable Long id) {
-        return studentProfileService.getStudentProfileById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<StudentProfile> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getStudentById(id));
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<StudentProfile> updateStatus(
+            @PathVariable Long id,
+            @RequestParam Boolean active) {
+        return ResponseEntity.ok(service.updateStudentStatus(id, active));
     }
 
     @GetMapping
-    public ResponseEntity<List<StudentProfile>> getAllStudentProfiles() {
-        return ResponseEntity.ok(
-                studentProfileService.getAllStudentProfiles()
-        );
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStudentProfile(@PathVariable Long id) {
-        studentProfileService.deleteStudentProfile(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<List<StudentProfile>> getAll() {
+        return ResponseEntity.ok(service.getAllStudents());
     }
 }
+    

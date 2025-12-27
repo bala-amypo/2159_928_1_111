@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.model.MatchAttemptRecord;
 import com.example.demo.service.MatchAttemptService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,30 +11,31 @@ import java.util.List;
 @RequestMapping("/match-attempts")
 public class MatchAttemptController {
 
-    @Autowired
-    private MatchAttemptService matchAttemptService;
+    private final MatchAttemptService service;
 
-    @PostMapping
-    public ResponseEntity<MatchAttemptRecord> createMatchAttempt(
-            @RequestBody MatchAttemptRecord record) {
-        return ResponseEntity.ok(matchAttemptService.createMatchAttempt(record));
+    public MatchAttemptController(MatchAttemptService service) {
+        this.service = service;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<MatchAttemptRecord> getMatchAttempt(@PathVariable Long id) {
-        return matchAttemptService.getMatchAttemptById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @PostMapping
+    public ResponseEntity<MatchAttemptRecord> log(@RequestBody MatchAttemptRecord attempt) {
+        return ResponseEntity.ok(service.logMatchAttempt(attempt));
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<MatchAttemptRecord> updateStatus(
+            @PathVariable Long id,
+            @RequestParam String status) {
+        return ResponseEntity.ok(service.updateAttemptStatus(id, status));
+    }
+
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<List<MatchAttemptRecord>> getByStudent(@PathVariable Long studentId) {
+        return ResponseEntity.ok(service.getAttemptsByStudent(studentId));
     }
 
     @GetMapping
-    public ResponseEntity<List<MatchAttemptRecord>> getAllMatchAttempts() {
-        return ResponseEntity.ok(matchAttemptService.getAllMatchAttempts());
-    }
-
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<MatchAttemptRecord>> getMatchAttemptsByUser(
-            @PathVariable Long userId) {
-        return ResponseEntity.ok(matchAttemptService.getMatchAttemptsByUserId(userId));
+    public ResponseEntity<List<MatchAttemptRecord>> getAll() {
+        return ResponseEntity.ok(service.getAllMatchAttempts());
     }
 }

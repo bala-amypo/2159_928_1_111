@@ -2,30 +2,40 @@ package com.example.demo.controller;
 
 import com.example.demo.model.CompatibilityScoreRecord;
 import com.example.demo.service.CompatibilityScoreService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/score")
+@RequestMapping("/compatibility")
 public class CompatibilityScoreController {
 
-    @Autowired
-    private CompatibilityScoreService service;
+    private final CompatibilityScoreService service;
 
-    @PostMapping("/save")
-    public CompatibilityScoreRecord saveScore(@RequestBody CompatibilityScoreRecord scoreRecord) {
-        return service.saveScore(scoreRecord);
+    public CompatibilityScoreController(CompatibilityScoreService service) {
+        this.service = service;
     }
 
-    @GetMapping("/all/{studentId}")
-    public List<CompatibilityScoreRecord> getAllScores(@PathVariable Long studentId) {
-        return service.getAllScores(studentId);
+    @PostMapping("/compute")
+    public ResponseEntity<CompatibilityScoreRecord> compute(
+            @RequestParam Long studentAId,
+            @RequestParam Long studentBId) {
+        return ResponseEntity.ok(service.computeScore(studentAId, studentBId));
     }
 
     @GetMapping("/{id}")
-    public CompatibilityScoreRecord getScoreById(@PathVariable Long id) {
-        return service.getScoreById(id);
+    public ResponseEntity<CompatibilityScoreRecord> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getScoreById(id));
+    }
+
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<List<CompatibilityScoreRecord>> getByStudent(@PathVariable Long studentId) {
+        return ResponseEntity.ok(service.getScoresForStudent(studentId));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CompatibilityScoreRecord>> getAll() {
+        return ResponseEntity.ok(service.getAllScores());
     }
 }
