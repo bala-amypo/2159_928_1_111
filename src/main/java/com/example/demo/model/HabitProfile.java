@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class HabitProfile {
@@ -17,89 +18,45 @@ public class HabitProfile {
     private Integer noiseTolerance;
     private String socialPreference;
 
-    private String studyStyle;
-    private String visitorsFrequency;
-    private Boolean smoking;
-    private Boolean drinking;
-    private String sleepTime;
-    private String wakeTime;
+    private LocalDateTime updatedAt;
 
-    public HabitProfile() {
+    // ===== GETTERS =====
+
+    public Long getId() { return id; }
+    public Long getStudentId() { return studentId; }
+    public Integer getStudyHoursPerDay() { return studyHoursPerDay; }
+    public String getSleepSchedule() { return sleepSchedule; }
+    public Integer getCleanlinessLevel() { return cleanlinessLevel; }
+    public Integer getNoiseTolerance() { return noiseTolerance; }
+    public String getSocialPreference() { return socialPreference; }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+
+    // ===== SETTERS (FIXED) =====
+
+    public void setId(Long id) { this.id = id; }
+    public void setStudentId(Long studentId) { this.studentId = studentId; }
+
+    public void setStudyHoursPerDay(Integer studyHoursPerDay) {
+        this.studyHoursPerDay = studyHoursPerDay;
     }
 
-    public Long getId() {
-        return id;
+    public void setSleepSchedule(String sleepSchedule) {
+        this.sleepSchedule = sleepSchedule;
     }
 
-    public Long getStudentId() {
-        return studentId;
+    public void setCleanlinessLevel(Integer cleanlinessLevel) {
+        this.cleanlinessLevel = cleanlinessLevel;
     }
 
-    public Integer getStudyHoursPerDay() {
-        return studyHoursPerDay;
+    public void setNoiseTolerance(Integer noiseTolerance) {
+        this.noiseTolerance = noiseTolerance;
     }
 
-    public String getSleepSchedule() {
-        return sleepSchedule;
+    public void setSocialPreference(String socialPreference) {
+        this.socialPreference = socialPreference;
     }
 
-    public Integer getCleanlinessLevel() {
-        return cleanlinessLevel;
-    }
-
-    public Integer getNoiseTolerance() {
-        return noiseTolerance;
-    }
-
-    public String getSocialPreference() {
-        return socialPreference;
-    }
-
-    public String getStudyStyle() {
-        return studyStyle;
-    }
-
-    public String getVisitorsFrequency() {
-        return visitorsFrequency;
-    }
-
-    public Boolean getSmoking() {
-        return smoking;
-    }
-
-    public Boolean getDrinking() {
-        return drinking;
-    }
-
-    public String getSleepTime() {
-        return sleepTime;
-    }
-
-    public String getWakeTime() {
-        return wakeTime;
-    }
-
-    public void setStudyStyle(String studyStyle) {
-        this.studyStyle = studyStyle;
-    }
-
-    public void setVisitorsFrequency(String visitorsFrequency) {
-        this.visitorsFrequency = visitorsFrequency;
-    }
-
-    public void setSmoking(Boolean smoking) {
-        this.smoking = smoking;
-    }
-
-    public void setDrinking(Boolean drinking) {
-        this.drinking = drinking;
-    }
-
-    public void setSleepTime(String sleepTime) {
-        this.sleepTime = sleepTime;
-    }
-
-    public void setWakeTime(String wakeTime) {
-        this.wakeTime = wakeTime;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

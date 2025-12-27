@@ -2,69 +2,71 @@ package com.example.demo.service;
 
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.UserAccount;
-import com.example.demo.repository.UserAccountRepository;
 import com.example.demo.security.JwtUtil;
 import com.example.demo.security.Role;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class AuthService {
 
-    private final UserAccountRepository userRepo;
-    private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+    private final Map<String, UserAccount> users = new HashMap<>();
 
-    public AuthService(UserAccountRepository userRepo,
-                       PasswordEncoder passwordEncoder,
-                       JwtUtil jwtUtil) {
-        this.userRepo = userRepo;
-        this.passwordEncoder = passwordEncoder;
+    public AuthService(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
 
     public AuthResponse register(AuthRequest request) {
-
-        if (userRepo.findByEmail(request.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("User already exists");
+        if (users.containsKey(request.getUsername())) {
+            return new AuthResponse("User already exists");
         }
 
         UserAccount user = new UserAccount();
+        user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(Role.USER);
+        user.setPassword(request.getPassword());
+        user.setRole(Role.valueOf(request.getRole()));
         user.setActive(true);
 
-        user = userRepo.save(user);
+        users.put(user.getUsername(), user);
 
         String token = jwtUtil.generateToken(
+                user.getUsername(),
+                user.getRole().name(),   // ✅ FIX
                 user.getEmail(),
-                user.getRole().name(),
-                user.getEmail(),
-                user.getId().toString()
+                "0"
         );
 
-        return new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
+        return new AuthResponse(
+                token,
+                0L,
+                user.getRole().name(),   // ✅ FIX
+                user.getEmail()
+        );
     }
 
     public AuthResponse login(AuthRequest request) {
-
-        UserAccount user = userRepo.findByEmail(request.getEmail())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("Invalid credentials");
+        UserAccount user = users.get(request.getUsername());
+        if (user == null || !user.getPassword().equals(request.getPassword())) {
+            return new AuthResponse("Invalid credentials");
         }
 
         String token = jwtUtil.generateToken(
+                user.getUsername(),
+                user.getRole().name(),   // ✅ FIX
                 user.getEmail(),
-                user.getRole().name(),
-                user.getEmail(),
-                user.getId().toString()
+                "0"
         );
 
-        return new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
+        return new AuthResponse(
+                token,
+                0L,
+                user.getRole().name(),   // ✅ FIX
+                user.getEmail()
+        );
     }
 }
