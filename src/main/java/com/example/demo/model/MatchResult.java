@@ -1,9 +1,7 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class MatchResult {
@@ -12,39 +10,50 @@ public class MatchResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long studentOneId;
-    private Long studentTwoId;
-    private Double compatibilityScore;
+    @ManyToOne
+    private StudentProfile studentA;
+
+    @ManyToOne
+    private StudentProfile studentB;
+
+    private Double score;
+
+    private String reasonSummary;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     public MatchResult() {
+    }
+
+    public MatchResult(StudentProfile studentA, StudentProfile studentB,
+                       Double score, String reasonSummary) {
+        this.studentA = studentA;
+        this.studentB = studentB;
+        this.score = score;
+        this.reasonSummary = reasonSummary;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public StudentProfile getStudentA() {
+        return studentA;
     }
 
-    public Long getStudentOneId() {
-        return studentOneId;
+    public StudentProfile getStudentB() {
+        return studentB;
     }
 
-    public void setStudentOneId(Long studentOneId) {
-        this.studentOneId = studentOneId;
+    public Double getScore() {
+        return score;
     }
 
-    public Long getStudentTwoId() {
-        return studentTwoId;
+    public String getReasonSummary() {
+        return reasonSummary;
     }
 
-    public void setStudentTwoId(Long studentTwoId) {
-        this.studentTwoId = studentTwoId;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
-
-    public Double getCompatibilityScore() {
-        return compatibilityScore;
-    }
-
-    public void setCompatibilityScore(Double compatib
+}

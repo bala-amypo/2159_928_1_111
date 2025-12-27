@@ -1,6 +1,6 @@
-Role.java 
-package com.example.demo.security; 
- 
-public enum Role { 
-    USER, ADMIN 
-} 
+package com.example.demo.security;
+
+public enum Role {
+    USER,
+    ADMIN
+}
