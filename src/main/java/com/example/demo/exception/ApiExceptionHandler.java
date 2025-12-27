@@ -1,32 +1,35 @@
-package com.example.demo.exception; 
+package com.example.demo.exception;
 
-import org.springframework.hƩp.HttpStatus; 
-import org.springframework.hƩp.ResponseEnƟty; 
-import org.springframework.web.bind.MethodArgumentNotValidException; 
-import org.springframework.web.bind.annotaƟon.ControllerAdvice; 
-import org.springframework.web.bind.annotaƟon.ExcepƟonHandler; 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.uƟl.HashMap; 
-import java.uƟl.Map; 
+import java.util.HashMap;
+import java.util.Map;
 
-@ControllerAdvice 
-public class ApiExceptionHandler { 
+@ControllerAdvice
+public class ApiExceptionHandler {
 
-    @ExcepƟonHandler(MethodArgumentNotValidException.class) 
-    public ResponseEnƟty<Map<String, String>> handleValidaƟonErrors(MethodArgumentNotValidException ex) { 
-        Map<String, String> errors = new HashMap<>(); 
-        ex.getBindingResult().getFieldErrors().forEach(error -> 
-                errors.put(error.getField(), error.getDefaultMessage())); 
-        return new ResponseEnƟty<>(errors, HttpStatus.BAD_REQUEST); 
-    } 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidationErrors(
+            MethodArgumentNotValidException ex) {
 
-    @ExcepƟonHandler(ResourceNotFoundException.class) 
-    public ResponseEnƟty<String> handleNotFound(ResourceNotFoundException ex) { 
-        return new ResponseEnƟty<>(ex.getMessage(), HttpStatus.NOT_FOUND); 
-    } 
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+                errors.put(error.getField(), error.getDefaultMessage()));
 
-    @ExcepƟonHandler(ExcepƟon.class) 
-    public ResponseEnƟty<String> handleGeneric(ExcepƟon ex) { 
-        return new ResponseEnƟty<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR); 
-    } 
-} 
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handleNotFound(ResourceNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGeneric(Exception ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
