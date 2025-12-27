@@ -3,17 +3,17 @@ package com.example.demo.service.impl;
 import com.example.demo.model.RoomAssignmentRecord;
 import com.example.demo.repository.RoomAssignmentRecordRepository;
 import com.example.demo.service.RoomAssignmentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomAssignmentServiceImpl implements RoomAssignmentService {
 
-    private final RoomAssignmentRecordRepository repo;
-
-    public RoomAssignmentServiceImpl(RoomAssignmentRecordRepository repo) {
-        this.repo = repo;
-    }
+    @Autowired
+    private RoomAssignmentRecordRepository repo;
 
     @Override
     public RoomAssignmentRecord assignRoom(RoomAssignmentRecord record) {
@@ -21,17 +21,13 @@ public class RoomAssignmentServiceImpl implements RoomAssignmentService {
     }
 
     @Override
-    public RoomAssignmentRecord updateAssignment(RoomAssignmentRecord record) {
-        return repo.save(record);
-    }
-
-    @Override
-    public RoomAssignmentRecord getAssignmentById(Long id) {
-        return repo.findById(id).orElse(null);
-    }
-
-    @Override
-    public List<RoomAssignmentRecord> getAssignmentsByStudent(Long studentId) {
+    public List<RoomAssignmentRecord> getRoomsByStudentId(Long studentId) {
+        // This uses the derived query in the repository
         return repo.findByStudentAIdOrStudentBId(studentId, studentId);
+    }
+
+    @Override
+    public Optional<RoomAssignmentRecord> getRoomById(Long id) {
+        return repo.findById(id);
     }
 }
