@@ -10,7 +10,7 @@ public class HabitProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ✅ REQUIRED BY SERVICE & TESTS
+    // REQUIRED BY SERVICE & TESTS
     private Long studentId;
 
     private Integer studyHoursPerDay;
@@ -34,14 +34,14 @@ public class HabitProfile {
     private String sleepTime;
     private String wakeTime;
 
-    // ✅ REQUIRED BY SERVICE
     private LocalDateTime updatedAt;
 
-    // ================= ENUMS REQUIRED BY TESTS =================
+    // ================= ENUMS (MATCH TESTS EXACTLY) =================
 
     public enum SleepSchedule {
-        EARLY_BIRD,
-        NIGHT_OWL
+        EARLY,
+        REGULAR,
+        LATE
     }
 
     public enum CleanlinessLevel {
@@ -58,7 +58,7 @@ public class HabitProfile {
 
     public enum SocialPreference {
         INTROVERT,
-        AMBIVERT,
+        BALANCED,
         EXTROVERT
     }
 
@@ -66,6 +66,11 @@ public class HabitProfile {
 
     public Long getId() {
         return id;
+    }
+
+    // ✅ REQUIRED BY TESTS
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getStudentId() {
