@@ -17,9 +17,16 @@ public class MatchAttemptServiceImpl implements MatchAttemptService {
     }
 
     @Override
+    public MatchAttemptRecord logMatchAttempt(MatchAttemptRecord record) {
+        return repository.save(record);
+    }
+
+    @Override
     public MatchAttemptRecord updateAttemptStatus(long id, String status) {
         MatchAttemptRecord record = repository.findById(id).orElseThrow();
-        record.setStatus(MatchAttemptRecord.Status.valueOf(status.toUpperCase()));
+        record.setStatus(
+                MatchAttemptRecord.Status.valueOf(status.toUpperCase())
+        );
         return repository.save(record);
     }
 
