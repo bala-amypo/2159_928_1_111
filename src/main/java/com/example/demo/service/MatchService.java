@@ -1,14 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.model.MatchResult;
-
 import java.util.List;
 
 public interface MatchService {
 
-    MatchResult findMatch(Long studentId);
+    MatchResult calculateMatch(Long studentAId, Long studentBId);
 
     List<MatchResult> getAllMatches();
-
-    MatchResult getMatchById(Long id);
 }
