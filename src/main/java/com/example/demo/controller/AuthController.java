@@ -1,44 +1,40 @@
-package com.example.demo.controller;
-
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.security.JwtUtil;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-@RestController
-@RequestMapping("/auth")
-public class AuthController {
-
-    private final JwtUtil jwtUtil;
-    private final Map<String, AuthRequest> users = new ConcurrentHashMap<>();
-
-    public AuthController(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody AuthRequest req) {
-        if (users.containsKey(req.getUsername())) {
-            return ResponseEntity.badRequest().body("User already exists");
-        }
-        users.put(req.getUsername(), req);
-        return ResponseEntity.ok("Registered");
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthRequest req) {
-        if (!users.containsKey(req.getUsername())) {
-            return ResponseEntity.status(401).body("Invalid credentials");
-        }
-        String token = jwtUtil.generateToken(
-                req.getUsername(),
-                req.getRole(),
-                req.getEmail(),
-                "1"
-        );
-        return ResponseEntity.ok(token);
-    }
+package com.example.demo.config; 
+ 
+import io.swagger.v3.oas.models.OpenAPI; 
+import io.swagger.v3.oas.models.info.Info; 
+import io.swagger.v3.oas.models.servers.Server; 
+import io.swagger.v3.oas.models.security.SecurityRequirement; 
+import io.swagger.v3.oas.models.security.SecurityScheme; 
+import org.springframework.context.annota on.Bean; 
+import org.springframework.context.annota on.Configura on; 
+ 
+import java.u l.List; 
+ 
+@Configura on 
+public class SwaggerConfig { 
+ 
+    private sta c final String SECURITY_SCHEME_NAME = "BearerAuth"; 
+ 
+    @Bean 
+    public OpenAPI api() { 
+        return new OpenAPI() 
+                .servers(List.of( 
+                        new Server() 
+                                .url("h ps://9096.32procr.amypo.ai") 
+                                .descrip on("Local Development Server") 
+                )) 
+                .addSecurityItem(new SecurityRequirement().addList(SECURITY_SCHEME_NAME)) 
+                .components(new io.swagger.v3.oas.models.Components() 
+                        .addSecuritySchemes(SECURITY_SCHEME_NAME, 
+                                new SecurityScheme() 
+                                        .name("Authoriza on") 
+                                        .type(SecurityScheme.Type.HTTP) 
+                                        .scheme("bearer") 
+                                        .bearerFormat("JWT") 
+                        )) 
+                .info(new Info() 
+                        . tle("Hostel Roommate Compa bility Matcher API") 
+                        .descrip on("API for matching hostel roommates based on compa bility") 
+                        .version("1.0")); 
+    } 
 }
