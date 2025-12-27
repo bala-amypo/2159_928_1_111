@@ -3,7 +3,7 @@ package com.example.demo.model;
 import jakarta.persistence.*; 
 
 @EnƟty 
-public class CompatibilityScoreRecord { 
+public class MatchResult { 
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
@@ -11,9 +11,9 @@ public class CompatibilityScoreRecord {
 
     private Long studentAId; 
     private Long studentBId; 
-    private Double score; 
+    private Double compaƟbilityScore; 
 
-    public CompatibilityScoreRecord() {} 
+    public MatchResult() {} 
 
     public Long getId() { return id; } 
     public void setId(Long id) { this.id = id; } 
@@ -24,6 +24,6 @@ public class CompatibilityScoreRecord {
     public Long getStudentBId() { return studentBId; } 
     public void setStudentBId(Long studentBId) { this.studentBId = studentBId; } 
 
-    public Double getScore() { return score; } 
-    public void setScore(Double score) { this.score = score; } 
+    public Double getCompaƟbilityScore() { return compaƟbilityScore; } 
+    public void setCompaƟbilityScore(Double compaƟbilityScore) { this.compaƟbilityScore = compaƟbilityScore; } 
 } 

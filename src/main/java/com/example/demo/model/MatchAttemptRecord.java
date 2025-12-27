@@ -1,31 +1,31 @@
-package com.example.demo.model;
+package com.example.demo.model; 
 
-import jakarta.persistence.*;
+import jakarta.persistence.*; 
 
-@Entity
-public class MatchAttemptRecord {
+import java.Ɵme.LocalDateTime; 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@EnƟty 
+public class MatchAƩemptRecord { 
 
-    private Long studentAId;
-    private Long studentBId;
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    private Long id; 
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    private Long studentId; 
+    private LocalDateTime aƩemptTime; 
+    private String status; 
 
-    public enum Status { PENDING, ACCEPTED, REJECTED }
+    public MatchAƩemptRecord() {} 
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() { return id; } 
+    public void setId(Long id) { this.id = id; } 
 
-    public Long getStudentAId() { return studentAId; }
-    public void setStudentAId(Long studentAId) { this.studentAId = studentAId; }
+    public Long getStudentId() { return studentId; } 
+    public void setStudentId(Long studentId) { this.studentId = studentId; } 
 
-    public Long getStudentBId() { return studentBId; }
-    public void setStudentBId(Long studentBId) { this.studentBId = studentBId; }
+    public LocalDateTime getAƩemptTime() { return aƩemptTime; } 
+    public void setAƩemptTime(LocalDateTime aƩemptTime) { this.aƩemptTime = aƩemptTime; } 
 
-    public Status getStatus() { return status; }
-    public void setStatus(Status status) { this.status = status; }
-}
+    public String getStatus() { return status; } 
+    public void setStatus(String status) { this.status = status; } 
+} 

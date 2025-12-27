@@ -1,58 +1,59 @@
-package com.example.demo.model;
+package com.example.demo.model; 
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import jakarta.persistence.*; 
 
-@Entity
-public class HabitProfile {
+import java.Ɵme.LocalTime; 
 
-    public enum SleepSchedule { EARLY, REGULAR, LATE }
-    public enum CleanlinessLevel { LOW, MEDIUM, HIGH }
-    public enum SocialPreference { INTROVERT, BALANCED, EXTROVERT }
+@EnƟty 
+public class HabitProfile { 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    private Long id; 
 
-    private int studyHoursPerDay;
+    private Long studentId; 
+    private Boolean smoking; 
+    private Boolean drinking; 
+    private LocalTime sleepTime; 
+    private LocalTime wakeTime; 
+    private Integer cleanlinessLevel; 
+    private Integer noisePreference; 
+    private String studyStyle; 
+    private String socialPreference; 
+    private String visitorsFrequency; 
 
-    @Enumerated(EnumType.STRING)
-    private SleepSchedule sleepSchedule;
+    public HabitProfile() {} 
 
-    @Enumerated(EnumType.STRING)
-    private CleanlinessLevel cleanlinessLevel;
+    public Long getId() { return id; } 
+    public void setId(Long id) { this.id = id; } 
 
-    @Enumerated(EnumType.STRING)
-    private SocialPreference socialPreference;
+    public Long getStudentId() { return studentId; } 
+    public void setStudentId(Long studentId) { this.studentId = studentId; } 
 
-    private LocalDateTime updatedAt;
+    public Boolean getSmoking() { return smoking; } 
+    public void setSmoking(Boolean smoking) { this.smoking = smoking; } 
 
-    // Constructors
-    public HabitProfile() {}
-    public HabitProfile(int studyHoursPerDay, SleepSchedule sleepSchedule,
-                        CleanlinessLevel cleanlinessLevel, SocialPreference socialPreference) {
-        this.studyHoursPerDay = studyHoursPerDay;
-        this.sleepSchedule = sleepSchedule;
-        this.cleanlinessLevel = cleanlinessLevel;
-        this.socialPreference = socialPreference;
-        this.updatedAt = LocalDateTime.now();
-    }
+    public Boolean getDrinking() { return drinking; } 
+    public void setDrinking(Boolean drinking) { this.drinking = drinking; } 
 
-    // Getters & Setters
-    public Long getId() { return id; }
+    public LocalTime getSleepTime() { return sleepTime; } 
+    public void setSleepTime(LocalTime sleepTime) { this.sleepTime = sleepTime; } 
 
-    public int getStudyHoursPerDay() { return studyHoursPerDay; }
-    public void setStudyHoursPerDay(int studyHoursPerDay) { this.studyHoursPerDay = studyHoursPerDay; }
+    public LocalTime getWakeTime() { return wakeTime; } 
+    public void setWakeTime(LocalTime wakeTime) { this.wakeTime = wakeTime; } 
 
-    public SleepSchedule getSleepSchedule() { return sleepSchedule; }
-    public void setSleepSchedule(SleepSchedule sleepSchedule) { this.sleepSchedule = sleepSchedule; }
+    public Integer getCleanlinessLevel() { return cleanlinessLevel; } 
+    public void setCleanlinessLevel(Integer cleanlinessLevel) { this.cleanlinessLevel = cleanlinessLevel; } 
 
-    public CleanlinessLevel getCleanlinessLevel() { return cleanlinessLevel; }
-    public void setCleanlinessLevel(CleanlinessLevel cleanlinessLevel) { this.cleanlinessLevel = cleanlinessLevel; }
+    public Integer getNoisePreference() { return noisePreference; } 
+    public void setNoisePreference(Integer noisePreference) { this.noisePreference = noisePreference; } 
 
-    public SocialPreference getSocialPreference() { return socialPreference; }
-    public void setSocialPreference(SocialPreference socialPreference) { this.socialPreference = socialPreference; }
+    public String getStudyStyle() { return studyStyle; } 
+    public void setStudyStyle(String studyStyle) { this.studyStyle = studyStyle; } 
 
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
-}
+    public String getSocialPreference() { return socialPreference; } 
+    public void setSocialPreference(String socialPreference) { this.socialPreference = socialPreference; } 
+
+    public String getVisitorsFrequency() { return visitorsFrequency; } 
+    public void setVisitorsFrequency(String visitorsFrequency) { this.visitorsFrequency = visitorsFrequency; } 
+} 
