@@ -1,48 +1,64 @@
-package com.example.demo.service.impl; 
+package com.example.demo.service.impl;
 
-import com.example.demo.exception.ResourceNotFoundException; 
-import com.example.demo.model.MatchAƩemptRecord; 
-import com.example.demo.repository.MatchAƩemptRecordRepository; 
-import com.example.demo.service.MatchAƩemptService; 
-import org.springframework.stereotype.Service; 
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.CompatibilityScoreRecord;
+import com.example.demo.model.MatchAttemptRecord;
+import com.example.demo.repository.CompatibilityScoreRecordRepository;
+import com.example.demo.repository.MatchAttemptRecordRepository;
+import com.example.demo.service.MatchAttemptService;
+import org.springframework.stereotype.Service;
 
-import java.uƟl.List; 
+import java.util.List;
 
-@Service 
-public class MatchAƩemptServiceImpl implements MatchAƩemptService { 
+@Service
+public class MatchAttemptServiceImpl implements MatchAttemptService {
 
-    private final MatchAƩemptRecordRepository aƩemptRepo; 
+    private final MatchAttemptRecordRepository matchRepo;
+    private final CompatibilityScoreRecordRepository scoreRepo;
 
-    public MatchAƩemptServiceImpl(MatchAƩemptRecordRepository aƩemptRepo) { 
-        this.aƩemptRepo = aƩemptRepo; 
-    } 
+    public MatchAttemptServiceImpl(MatchAttemptRecordRepository matchRepo,
+                                   CompatibilityScoreRecordRepository scoreRepo) {
+        this.matchRepo = matchRepo;
+        this.scoreRepo = scoreRepo;
+    }
 
-    @Override 
-    public MatchAƩemptRecord logMatchAƩempt(MatchAƩemptRecord aƩempt) { 
-        return aƩemptRepo.save(aƩempt); 
-    } 
+    @Override
+    public MatchAttemptRecord logMatchAttempt(MatchAttemptRecord attempt) {
+        if (attempt.getResultScoreId() != null) {
+            CompatibilityScoreRecord score =
+                    scoreRepo.findById(attempt.getResultScoreId()).orElse(null);
+            if (score != null) {
+                attempt.setStatus(MatchAttemptRecord.Status.MATCHED);
+            }
+        } else {
+            attempt.setStatus(MatchAttemptRecord.Status.PENDING_REVIEW);
+        }
 
-    @Override 
-    public MatchAƩemptRecord updateAƩemptStatus(Long id, String status) { 
-        MatchAƩemptRecord aƩempt = aƩemptRepo.findById(id) 
-                .orElseThrow(() -> new ResourceNotFoundException("Match aƩempt not found")); 
-        aƩempt.setStatus(status); 
-        return aƩemptRepo.save(aƩempt); 
-    } 
+        return matchRepo.save(attempt);
+    }
 
-    @Override 
-    public List<MatchAƩemptRecord> getAƩemptsByStudent(Long studentId) { 
-        return aƩemptRepo.findByStudentId(studentId); 
-    } 
+    @Override
+    public MatchAttemptRecord updateAttemptStatus(Long id, String status) {
+        MatchAttemptRecord attempt = matchRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Match attempt not found"));
 
-    @Override 
-    public MatchAƩemptRecord getAƩemptById(Long id) { 
-        return aƩemptRepo.findById(id) 
-                .orElseThrow(() -> new ResourceNotFoundException("Match aƩempt not found")); 
-    } 
+        attempt.setStatus(MatchAttemptRecord.Status.valueOf(status));
+        return matchRepo.save(attempt);
+    }
 
-    @Override 
-    public List<MatchAƩemptRecord> getAllMatchAƩempts() { 
-        return aƩemptRepo.findAll(); 
-    } 
-} 
+    @Override
+    public List<MatchAttemptRecord> getAttemptsByStudent(Long studentId) {
+        return matchRepo.findByInitiatorStudentIdOrCandidateStudentId(studentId, studentId);
+    }
+
+    @Override
+    public List<MatchAttemptRecord> getAllMatchAttempts() {
+        return matchRepo.findAll();
+    }
+
+    @Override
+    public MatchAttemptRecord getAttemptById(Long id) {
+        return matchRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Match attempt not found"));
+    }
+}
