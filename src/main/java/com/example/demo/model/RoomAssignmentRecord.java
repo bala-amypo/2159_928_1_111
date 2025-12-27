@@ -1,15 +1,9 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "room_assignment_records")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class RoomAssignmentRecord {
 
     @Id
@@ -25,5 +19,24 @@ public class RoomAssignmentRecord {
     @Column(name = "room_number", nullable = false)
     private String roomNumber;
 
-    // You can add more fields if needed
+    public RoomAssignmentRecord() {}
+
+    public RoomAssignmentRecord(Long id, Long studentAId, Long studentBId, String roomNumber) {
+        this.id = id;
+        this.studentAId = studentAId;
+        this.studentBId = studentBId;
+        this.roomNumber = roomNumber;
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Long getStudentAId() { return studentAId; }
+    public void setStudentAId(Long studentAId) { this.studentAId = studentAId; }
+
+    public Long getStudentBId() { return studentBId; }
+    public void setStudentBId(Long studentBId) { this.studentBId = studentBId; }
+
+    public String getRoomNumber() { return roomNumber; }
+    public void setRoomNumber(String roomNumber) { this.roomNumber = roomNumber; }
 }

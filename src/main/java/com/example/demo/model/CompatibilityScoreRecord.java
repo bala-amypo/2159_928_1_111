@@ -1,15 +1,9 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "compatibility_score_records")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class CompatibilityScoreRecord {
 
     @Id
@@ -25,5 +19,24 @@ public class CompatibilityScoreRecord {
     @Column(name = "score", nullable = false)
     private Integer score;
 
-    // You can add more fields if needed
+    public CompatibilityScoreRecord() {}
+
+    public CompatibilityScoreRecord(Long id, Long studentAId, Long studentBId, Integer score) {
+        this.id = id;
+        this.studentAId = studentAId;
+        this.studentBId = studentBId;
+        this.score = score;
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public Long getStudentAId() { return studentAId; }
+    public void setStudentAId(Long studentAId) { this.studentAId = studentAId; }
+
+    public Long getStudentBId() { return studentBId; }
+    public void setStudentBId(Long studentBId) { this.studentBId = studentBId; }
+
+    public Integer getScore() { return score; }
+    public void setScore(Integer score) { this.score = score; }
 }
