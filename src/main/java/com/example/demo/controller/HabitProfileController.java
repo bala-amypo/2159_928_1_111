@@ -1,44 +1,40 @@
-package com.example.demo.controller; 
+package com.example.demo.controller;
 
-import com.example.demo.model.HabitProfile; 
-import com.example.demo.service.HabitProfileService; 
-import org.springframework.hƩp.ResponseEnƟty; 
-import org.springframework.web.bind.annotaƟon.*; 
+import com.example.demo.model.HabitProfile;
+import com.example.demo.service.HabitProfileService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.uƟl.List; 
+import java.util.List;
 
-@RestController 
-@RequestMapping("/api/habits") 
-public class HabitProfileController { 
-     
-    private final HabitProfileService habitService; 
+@RestController
+@RequestMapping("/habit-profiles")
+public class HabitProfileController {
 
-    public HabitProfileController(HabitProfileService habitService) { 
-        this.habitService = habitService; 
-    } 
+    @Autowired
+    private HabitProfileService habitProfileService;
 
-    @PostMapping 
-    public ResponseEnƟty<HabitProfile> create(@RequestBody HabitProfile habit) { 
-        HabitProfile created = habitService.createOrUpdateHabit(habit); 
-        return ResponseEnƟty.ok(created); 
-    } 
+    @PostMapping
+    public ResponseEntity<HabitProfile> createHabitProfile(@RequestBody HabitProfile habitProfile) {
+        return ResponseEntity.ok(habitProfileService.createHabitProfile(habitProfile));
+    }
 
-    @GetMapping("/student/{studentId}") 
-    public ResponseEnƟty<HabitProfile> getByStudent(@PathVariable Long studentId) { 
-        HabitProfile habit = habitService.getHabitByStudent(studentId); 
-        return ResponseEnƟty.ok(habit); 
-    } 
+    @GetMapping("/{id}")
+    public ResponseEntity<HabitProfile> getHabitProfile(@PathVariable Long id) {
+        return habitProfileService.getHabitProfileById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
-    @GetMapping("/{id}") 
-    public ResponseEnƟty<HabitProfile> getById(@PathVariable Long id) { 
-        return habitService.getHabitById(id) 
-                .map(ResponseEnƟty::ok) 
-                .orElse(ResponseEnƟty.notFound().build()); 
-    } 
+    @GetMapping
+    public ResponseEntity<List<HabitProfile>> getAllHabitProfiles() {
+        return ResponseEntity.ok(habitProfileService.getAllHabitProfiles());
+    }
 
-    @GetMapping 
-    public ResponseEnƟty<List<HabitProfile>> getAll() { 
-        List<HabitProfile> habits = habitService.getAllHabitProfiles(); 
-        return ResponseEnƟty.ok(habits); 
-    } 
-} 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteHabitProfile(@PathVariable Long id) {
+        habitProfileService.deleteHabitProfile(id);
+        return ResponseEntity.noContent().build();
+    }
+}

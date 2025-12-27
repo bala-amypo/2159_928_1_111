@@ -1,49 +1,41 @@
-package com.example.demo.controller; 
+package com.example.demo.controller;
 
-import com.example.demo.model.MatchAƩemptRecord; 
-import com.example.demo.service.MatchAƩemptService; 
-import org.springframework.hƩp.ResponseEnƟty; 
-import org.springframework.web.bind.annotaƟon.*; 
+import com.example.demo.model.MatchAttemptRecord;
+import com.example.demo.service.MatchAttemptService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.uƟl.List; 
+import java.util.List;
 
-@RestController 
-@RequestMapping("/api/match-aƩempts") 
-public class MatchAƩemptController { 
-     
-    private final MatchAƩemptService aƩemptService; 
+@RestController
+@RequestMapping("/match-attempts")
+public class MatchAttemptController {
 
-    public MatchAƩemptController(MatchAƩemptService aƩemptService) { 
-        this.aƩemptService = aƩemptService; 
-    } 
+    @Autowired
+    private MatchAttemptService matchAttemptService;
 
-    @PostMapping 
-    public ResponseEnƟty<MatchAƩemptRecord> log(@RequestBody MatchAƩemptRecord aƩempt) { 
-        MatchAƩemptRecord logged = aƩemptService.logMatchAƩempt(aƩempt); 
-        return ResponseEnƟty.ok(logged); 
-    } 
+    @PostMapping
+    public ResponseEntity<MatchAttemptRecord> createMatchAttempt(
+            @RequestBody MatchAttemptRecord record) {
+        return ResponseEntity.ok(matchAttemptService.createMatchAttempt(record));
+    }
 
-    @PutMapping("/{id}/status") 
-    public ResponseEnƟty<MatchAƩemptRecord> updateStatus(@PathVariable Long id, @RequestParam String status) { 
-        MatchAƩemptRecord updated = aƩemptService.updateAƩemptStatus(id, status); 
-        return ResponseEnƟty.ok(updated); 
-    } 
+    @GetMapping("/{id}")
+    public ResponseEntity<MatchAttemptRecord> getMatchAttempt(@PathVariable Long id) {
+        return matchAttemptService.getMatchAttemptById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
-    @GetMapping("/student/{studentId}") 
-    public ResponseEnƟty<List<MatchAƩemptRecord>> getByStudent(@PathVariable Long studentId) { 
-        List<MatchAƩemptRecord> aƩempts = aƩemptService.getAƩemptsByStudent(studentId); 
-        return ResponseEnƟty.ok(aƩempts); 
-    } 
+    @GetMapping
+    public ResponseEntity<List<MatchAttemptRecord>> getAllMatchAttempts() {
+        return ResponseEntity.ok(matchAttemptService.getAllMatchAttempts());
+    }
 
-    @GetMapping("/{id}") 
-    public ResponseEnƟty<MatchAƩemptRecord> getById(@PathVariable Long id) { 
-        MatchAƩemptRecord aƩempt = aƩemptService.getAƩemptById(id); 
-        return ResponseEnƟty.ok(aƩempt); 
-    } 
-
-    @GetMapping 
-    public ResponseEnƟty<List<MatchAƩemptRecord>> getAll() { 
-        List<MatchAƩemptRecord> aƩempts = aƩemptService.getAllMatchAƩempts(); 
-        return ResponseEnƟty.ok(aƩempts); 
-    } 
-} 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<MatchAttemptRecord>> getMatchAttemptsByUser(
+            @PathVariable Long userId) {
+        return ResponseEntity.ok(matchAttemptService.getMatchAttemptsByUserId(userId));
+    }
+}
