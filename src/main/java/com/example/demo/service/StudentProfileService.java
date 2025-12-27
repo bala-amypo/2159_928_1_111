@@ -1,19 +1,13 @@
-package com.example.demo.service; 
+package com.example.demo.service;
 
-import com.example.demo.model.StudentProfile; 
+import com.example.demo.model.StudentProfile;
+import java.util.List;
+import java.util.Optional;
 
-import java.uƟl.List; 
-import java.uƟl.OpƟonal; 
-
-public interface StudentProfileService { 
-
-    StudentProfile createStudent(StudentProfile student); 
-
-    StudentProfile getStudentById(Long id); 
-
-    List<StudentProfile> getAllStudents(); 
-
-    StudentProfile updateStudentStatus(Long id, Boolean acƟve); 
-
-    OpƟonal<StudentProfile> findByStudentId(String studentId); 
-} 
+public interface StudentProfileService {
+    StudentProfile createStudent(StudentProfile student);
+    StudentProfile getStudentById(Long id);
+    StudentProfile updateStudentStatus(Long id, Boolean active);
+    List<StudentProfile> getAllStudents();
+    Optional<StudentProfile> findByStudentId(String studentId);
+}

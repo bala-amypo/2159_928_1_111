@@ -1,18 +1,12 @@
-package com.example.demo.service; 
+package com.example.demo.service;
 
-import com.example.demo.model.MatchAƩemptRecord; 
+import com.example.demo.model.MatchAttemptRecord;
+import java.util.List;
 
-import java.uƟl.List; 
-
-public interface MatchAƩemptService { 
-
-    MatchAƩemptRecord logMatchAƩempt(MatchAƩemptRecord aƩempt); 
-
-    MatchAƩemptRecord updateAƩemptStatus(Long id, String status); 
-
-    List<MatchAƩemptRecord> getAƩemptsByStudent(Long studentId); 
-
-    MatchAƩemptRecord getAƩemptById(Long id); 
-
-    List<MatchAƩemptRecord> getAllMatchAƩempts(); 
-} 
+public interface MatchAttemptService {
+    MatchAttemptRecord logMatchAttempt(MatchAttemptRecord attempt);
+    MatchAttemptRecord updateAttemptStatus(Long id, String status);
+    List<MatchAttemptRecord> getAttemptsByStudent(Long studentId);
+    List<MatchAttemptRecord> getAllMatchAttempts();
+    MatchAttemptRecord getAttemptById(Long id);
+}
