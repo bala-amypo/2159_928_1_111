@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 public class HabitProfile {
@@ -10,51 +9,139 @@ public class HabitProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long studentId;
     private Integer studyHoursPerDay;
-    private String sleepSchedule;
-    private Integer cleanlinessLevel;
-    private Integer noiseTolerance;
-    private String socialPreference;
-    private LocalDateTime updatedAt;
-    
-    // ===== GETTERS =====
 
-    public Long getId() { return id; }
-    public Long getStudentId() { return studentId; }
-    public Integer getStudyHoursPerDay() { return studyHoursPerDay; }
-    public String getSleepSchedule() { return sleepSchedule; }
-    public Integer getCleanlinessLevel() { return cleanlinessLevel; }
-    public Integer getNoiseTolerance() { return noiseTolerance; }
-    public String getSocialPreference() { return socialPreference; }
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    @Enumerated(EnumType.STRING)
+    private SleepSchedule sleepSchedule;
 
-    // ===== SETTERS (FIXED) =====
+    @Enumerated(EnumType.STRING)
+    private CleanlinessLevel cleanlinessLevel;
 
-    public void setId(Long id) { this.id = id; }
-    public void setStudentId(Long studentId) { this.studentId = studentId; }
+    @Enumerated(EnumType.STRING)
+    private NoiseTolerance noiseTolerance;
+
+    @Enumerated(EnumType.STRING)
+    private SocialPreference socialPreference;
+
+    private String studyStyle;
+    private String visitorsFrequency;
+    private Boolean smoking;
+    private Boolean drinking;
+    private String sleepTime;
+    private String wakeTime;
+
+    // ================= ENUMS REQUIRED BY TESTS =================
+
+    public enum SleepSchedule {
+        EARLY_BIRD,
+        NIGHT_OWL
+    }
+
+    public enum CleanlinessLevel {
+        LOW,
+        MEDIUM,
+        HIGH
+    }
+
+    public enum NoiseTolerance {
+        LOW,
+        MEDIUM,
+        HIGH
+    }
+
+    public enum SocialPreference {
+        INTROVERT,
+        AMBIVERT,
+        EXTROVERT
+    }
+
+    // ================= GETTERS & SETTERS =================
+
+    public Integer getStudyHoursPerDay() {
+        return studyHoursPerDay;
+    }
 
     public void setStudyHoursPerDay(Integer studyHoursPerDay) {
         this.studyHoursPerDay = studyHoursPerDay;
     }
 
-    public void setSleepSchedule(String sleepSchedule) {
+    public SleepSchedule getSleepSchedule() {
+        return sleepSchedule;
+    }
+
+    public void setSleepSchedule(SleepSchedule sleepSchedule) {
         this.sleepSchedule = sleepSchedule;
     }
 
-    public void setCleanlinessLevel(Integer cleanlinessLevel) {
+    public CleanlinessLevel getCleanlinessLevel() {
+        return cleanlinessLevel;
+    }
+
+    public void setCleanlinessLevel(CleanlinessLevel cleanlinessLevel) {
         this.cleanlinessLevel = cleanlinessLevel;
     }
 
-    public void setNoiseTolerance(Integer noiseTolerance) {
+    public NoiseTolerance getNoiseTolerance() {
+        return noiseTolerance;
+    }
+
+    public void setNoiseTolerance(NoiseTolerance noiseTolerance) {
         this.noiseTolerance = noiseTolerance;
     }
 
-    public void setSocialPreference(String socialPreference) {
+    public SocialPreference getSocialPreference() {
+        return socialPreference;
+    }
+
+    public void setSocialPreference(SocialPreference socialPreference) {
         this.socialPreference = socialPreference;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
+    public String getStudyStyle() {
+        return studyStyle;
+    }
+
+    public void setStudyStyle(String studyStyle) {
+        this.studyStyle = studyStyle;
+    }
+
+    public String getVisitorsFrequency() {
+        return visitorsFrequency;
+    }
+
+    public void setVisitorsFrequency(String visitorsFrequency) {
+        this.visitorsFrequency = visitorsFrequency;
+    }
+
+    public Boolean getSmoking() {
+        return smoking;
+    }
+
+    public void setSmoking(Boolean smoking) {
+        this.smoking = smoking;
+    }
+
+    public Boolean getDrinking() {
+        return drinking;
+    }
+
+    public void setDrinking(Boolean drinking) {
+        this.drinking = drinking;
+    }
+
+    public String getSleepTime() {
+        return sleepTime;
+    }
+
+    public void setSleepTime(String sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+
+    public String getWakeTime() {
+        return wakeTime;
+    }
+
+    public void setWakeTime(String wakeTime) {
+        this.wakeTime = wakeTime;
     }
 }

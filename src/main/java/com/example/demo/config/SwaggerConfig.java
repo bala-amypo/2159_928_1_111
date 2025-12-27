@@ -5,6 +5,7 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,7 +21,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .servers(List.of(
                         new Server()
-                                .url("http://localhost:8080")
+                                .url("https://9173.408procr.amypo.ai/")
                                 .description("Local Development Server")
                 ))
                 .addSecurityItem(
@@ -43,5 +44,10 @@ public class SwaggerConfig {
                                 .description("API for matching hostel roommates based on compatibility")
                                 .version("1.0")
                 );
+    }
+
+    // ✅ ADD THIS METHOD (FOR TEST COMPATIBILITY)
+    public OpenAPI api() {
+        return openAPI();
     }
 }
