@@ -1,49 +1,71 @@
-package com.example.demo.model; 
+package com.example.demo.model;
 
-import jakarta.persistence.*; 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-@Entity 
-public class StudentProfile { 
+@Entity
+public class StudentProfile {
 
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    private Long id; 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String studentId; 
-    private String name; 
-    private Integer age; 
-    private String course; 
-    private Integer yearOfStudy; 
-    private String gender; 
-    private String roomTypePreference; 
-    private Boolean acƟve; 
+    private String name;
+    private Integer age;
+    private String gender;
+    private String course;
+    private String preferences;
 
-    public StudentProfile() {} 
+    public StudentProfile() {
+    }
 
-    public Long getId() { return id; } 
-    public void setId(Long id) { this.id = id; } 
+    public Long getId() {
+        return id;
+    }
 
-    public String getStudentId() { return studentId; } 
-    public void setStudentId(String studentId) { this.studentId = studentId; } 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getName() { return name; } 
-    public void setName(String name) { this.name = name; } 
+    public String getName() {
+        return name;
+    }
 
-    public Integer getAge() { return age; } 
-    public void setAge(Integer age) { this.age = age; } 
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getCourse() { return course; } 
-    public void setCourse(String course) { this.course = course; } 
+    public Integer getAge() {
+        return age;
+    }
 
-    public Integer getYearOfStudy() { return yearOfStudy; } 
-    public void setYearOfStudy(Integer yearOfStudy) { this.yearOfStudy = yearOfStudy; } 
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
-    public String getGender() { return gender; } 
-    public void setGender(String gender) { this.gender = gender; } 
+    public String getGender() {
+        return gender;
+    }
 
-    public String getRoomTypePreference() { return roomTypePreference; } 
-    public void setRoomTypePreference(String roomTypePreference) { this.roomTypePreference = roomTypePreference; } 
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-    public Boolean getAcƟve() { return acƟve; } 
-    public void setAcƟve(Boolean acƟve) { this.acƟve = acƟve; } 
-} 
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    public String getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(String preferences) {
+        this.preferences = preferences;
+    }
+}

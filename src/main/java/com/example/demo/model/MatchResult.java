@@ -1,29 +1,50 @@
-package com.example.demo.model; 
+package com.example.demo.model;
 
-import jakarta.persistence.*; 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-@Entity 
-public class MatchResult { 
+@Entity
+public class MatchResult {
 
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    private Long id; 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private Long studentAId; 
-    private Long studentBId; 
-    private Double compaƟbilityScore; 
+    private Long studentOneId;
+    private Long studentTwoId;
+    private Double compatibilityScore;
 
-    public MatchResult() {} 
+    public MatchResult() {
+    }
 
-    public Long getId() { return id; } 
-    public void setId(Long id) { this.id = id; } 
+    public Long getId() {
+        return id;
+    }
 
-    public Long getStudentAId() { return studentAId; } 
-    public void setStudentAId(Long studentAId) { this.studentAId = studentAId; } 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Long getStudentBId() { return studentBId; } 
-    public void setStudentBId(Long studentBId) { this.studentBId = studentBId; } 
+    public Long getStudentOneId() {
+        return studentOneId;
+    }
 
-    public Double getCompaƟbilityScore() { return compaƟbilityScore; } 
-    public void setCompaƟbilityScore(Double compaƟbilityScore) { this.compaƟbilityScore = compaƟbilityScore; } 
-} 
+    public void setStudentOneId(Long studentOneId) {
+        this.studentOneId = studentOneId;
+    }
+
+    public Long getStudentTwoId() {
+        return studentTwoId;
+    }
+
+    public void setStudentTwoId(Long studentTwoId) {
+        this.studentTwoId = studentTwoId;
+    }
+
+    public Double getCompatibilityScore() {
+        return compatibilityScore;
+    }
+
+    public void setCompatibilityScore(Double compatib

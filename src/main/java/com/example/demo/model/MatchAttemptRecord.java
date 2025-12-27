@@ -1,31 +1,55 @@
-package com.example.demo.model; 
+package com.example.demo.model;
 
-import jakarta.persistence.*; 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-import java.Ɵme.LocalDateTime; 
+import java.time.LocalDateTime;
 
-@Entity 
-public class MatchAƩemptRecord { 
+@Entity
+public class MatchAttemptRecord {
 
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    private Long id; 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private Long studentId; 
-    private LocalDateTime aƩemptTime; 
-    private String status; 
+    private Long userId;
+    private LocalDateTime attemptedAt;
+    private Boolean success;
 
-    public MatchAƩemptRecord() {} 
+    public MatchAttemptRecord() {
+    }
 
-    public Long getId() { return id; } 
-    public void setId(Long id) { this.id = id; } 
+    public Long getId() {
+        return id;
+    }
 
-    public Long getStudentId() { return studentId; } 
-    public void setStudentId(Long studentId) { this.studentId = studentId; } 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public LocalDateTime getAƩemptTime() { return aƩemptTime; } 
-    public void setAƩemptTime(LocalDateTime aƩemptTime) { this.aƩemptTime = aƩemptTime; } 
+    public Long getUserId() {
+        return userId;
+    }
 
-    public String getStatus() { return status; } 
-    public void setStatus(String status) { this.status = status; } 
-} 
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public LocalDateTime getAttemptedAt() {
+        return attemptedAt;
+    }
+
+    public void setAttemptedAt(LocalDateTime attemptedAt) {
+        this.attemptedAt = attemptedAt;
+    }
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
+}

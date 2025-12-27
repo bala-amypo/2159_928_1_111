@@ -1,59 +1,82 @@
-package com.example.demo.model; 
+package com.example.demo.model;
 
-import jakarta.persistence.*; 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-import java.Ɵme.LocalTime; 
+import java.time.LocalTime;
 
-@Entity 
-public class HabitProfile { 
+@Entity
+public class HabitProfile {
 
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    private Long id; 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private Long studentId; 
-    private Boolean smoking; 
-    private Boolean drinking; 
-    private LocalTime sleepTime; 
-    private LocalTime wakeTime; 
-    private Integer cleanlinessLevel; 
-    private Integer noisePreference; 
-    private String studyStyle; 
-    private String socialPreference; 
-    private String visitorsFrequency; 
+    private Long studentId;
+    private String sleepSchedule;
+    private String cleanlinessLevel;
+    private String smokingPreference;
+    private LocalTime wakeUpTime;
+    private LocalTime sleepTime;
 
-    public HabitProfile() {} 
+    public HabitProfile() {
+    }
 
-    public Long getId() { return id; } 
-    public void setId(Long id) { this.id = id; } 
+    public Long getId() {
+        return id;
+    }
 
-    public Long getStudentId() { return studentId; } 
-    public void setStudentId(Long studentId) { this.studentId = studentId; } 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Boolean getSmoking() { return smoking; } 
-    public void setSmoking(Boolean smoking) { this.smoking = smoking; } 
+    public Long getStudentId() {
+        return studentId;
+    }
 
-    public Boolean getDrinking() { return drinking; } 
-    public void setDrinking(Boolean drinking) { this.drinking = drinking; } 
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
 
-    public LocalTime getSleepTime() { return sleepTime; } 
-    public void setSleepTime(LocalTime sleepTime) { this.sleepTime = sleepTime; } 
+    public String getSleepSchedule() {
+        return sleepSchedule;
+    }
 
-    public LocalTime getWakeTime() { return wakeTime; } 
-    public void setWakeTime(LocalTime wakeTime) { this.wakeTime = wakeTime; } 
+    public void setSleepSchedule(String sleepSchedule) {
+        this.sleepSchedule = sleepSchedule;
+    }
 
-    public Integer getCleanlinessLevel() { return cleanlinessLevel; } 
-    public void setCleanlinessLevel(Integer cleanlinessLevel) { this.cleanlinessLevel = cleanlinessLevel; } 
+    public String getCleanlinessLevel() {
+        return cleanlinessLevel;
+    }
 
-    public Integer getNoisePreference() { return noisePreference; } 
-    public void setNoisePreference(Integer noisePreference) { this.noisePreference = noisePreference; } 
+    public void setCleanlinessLevel(String cleanlinessLevel) {
+        this.cleanlinessLevel = cleanlinessLevel;
+    }
 
-    public String getStudyStyle() { return studyStyle; } 
-    public void setStudyStyle(String studyStyle) { this.studyStyle = studyStyle; } 
+    public String getSmokingPreference() {
+        return smokingPreference;
+    }
 
-    public String getSocialPreference() { return socialPreference; } 
-    public void setSocialPreference(String socialPreference) { this.socialPreference = socialPreference; } 
+    public void setSmokingPreference(String smokingPreference) {
+        this.smokingPreference = smokingPreference;
+    }
 
-    public String getVisitorsFrequency() { return visitorsFrequency; } 
-    public void setVisitorsFrequency(String visitorsFrequency) { this.visitorsFrequency = visitorsFrequency; } 
-} 
+    public LocalTime getWakeUpTime() {
+        return wakeUpTime;
+    }
+
+    public void setWakeUpTime(LocalTime wakeUpTime) {
+        this.wakeUpTime = wakeUpTime;
+    }
+
+    public LocalTime getSleepTime() {
+        return sleepTime;
+    }
+
+    public void setSleepTime(LocalTime sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+}
