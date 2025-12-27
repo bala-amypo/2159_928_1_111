@@ -1,21 +1,58 @@
-package com.example.demo.config;
+package com.example.demo.config; 
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.SecurityFilterChain;
+import com.example.demo.security.JwtAuthenƟcaƟonFilter; 
+import org.springframework.context.annotaƟon.Bean; 
+import org.springframework.context.annotaƟon.ConfiguraƟon; 
+import org.springframework.security.authenƟcaƟon.AuthenƟcaƟonManager; 
+import org.springframework.security.config.annotaƟon.authenƟcaƟon.configuraƟon.AuthenƟcaƟonConfiguraƟon; 
+import org.springframework.security.config.annotaƟon.web.builders.HƩpSecurity; 
+import org.springframework.security.config.annotaƟon.web.configuraƟon.EnableWebSecurity; 
+import org.springframework.security.config.hƩp.SessionCreaƟonPolicy; 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder; 
+import org.springframework.security.crypto.password.PasswordEncoder; 
+import org.springframework.security.web.SecurityFilterChain; 
+import org.springframework.security.web.authenƟcaƟon.UsernamePasswordAuthenƟcaƟonFilter; 
 
-@Configuration
-public class SecurityConfig {
+@ConfiguraƟon 
+@EnableWebSecurity 
+public class SecurityConfig { 
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .anyRequest().authenticated()
-            );
-        return http.build();
-    }
-}
+    private final JwtAuthenƟcaƟonFilter jwtAuthenƟcaƟonFilter; 
+
+    public SecurityConfig(JwtAuthenƟcaƟonFilter jwtAuthenƟcaƟonFilter) { 
+        this.jwtAuthenƟcaƟonFilter = jwtAuthenƟcaƟonFilter; 
+    } 
+
+    @Bean 
+    public SecurityFilterChain filterChain(HƩpSecurity hƩp) throws ExcepƟon { 
+
+        hƩp 
+            .csrf(csrf -> csrf.disable()) 
+            .sessionManagement(session -> 
+                session.sessionCreaƟonPolicy(SessionCreaƟonPolicy.STATELESS) 
+            ) 
+            .authorizeHƩpRequests(auth -> auth 
+                .requestMatchers( 
+                        "/auth/**", 
+                        "/swagger-ui/**", 
+                        "/v3/api-docs/**" 
+                ).permitAll() 
+                .requestMatchers("/api/**").authenƟcated() 
+                .anyRequest().denyAll() 
+            ) 
+            .addFilterBefore(jwtAuthenƟcaƟonFilter, UsernamePasswordAuthenƟcaƟonFilter.class); 
+
+        return hƩp.build(); 
+    } 
+
+    @Bean 
+    public AuthenƟcaƟonManager authenƟcaƟonManager( 
+            AuthenƟcaƟonConfiguraƟon config) throws ExcepƟon { 
+        return config.getAuthenƟcaƟonManager(); 
+    } 
+
+    @Bean 
+    public PasswordEncoder passwordEncoder() { 
+        return new BCryptPasswordEncoder(); 
+    } 
+} 
