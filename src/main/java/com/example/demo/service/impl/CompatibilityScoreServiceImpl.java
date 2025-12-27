@@ -8,6 +8,7 @@ import com.example.demo.repository.HabitProfileRepository;
 import com.example.demo.service.CompatibilityScoreService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,19 +43,16 @@ public class CompatibilityScoreServiceImpl implements CompatibilityScoreService 
         Optional<CompatibilityScoreRecord> existing =
                 scoreRepo.findByStudentAIdAndStudentBId(studentAId, studentBId);
 
-        CompatibilityScoreRecord record =
-                existing.orElseGet(CompatibilityScoreRecord::new);
-
+        CompatibilityScoreRecord record = existing.orElseGet(CompatibilityScoreRecord::new);
         record.setStudentAId(studentAId);
         record.setStudentBId(studentBId);
         record.setScore(score);
-        record.setComputedAt(java.time.LocalDateTime.now());
+        record.setComputedAt(LocalDateTime.now());
 
         return scoreRepo.save(record);
     }
 
     private double calculateCompatibility(HabitProfile a, HabitProfile b) {
-
         double score = 100.0;
 
         if (a.getSleepSchedule() != null && b.getSleepSchedule() != null &&

@@ -24,6 +24,7 @@ public class MatchAttemptServiceImpl implements MatchAttemptService {
 
     @Override
     public MatchAttemptRecord logMatchAttempt(MatchAttemptRecord attempt) {
+
         if (attempt.getResultScoreId() != null) {
             CompatibilityScoreRecord score =
                     scoreRepo.findById(attempt.getResultScoreId()).orElse(null);

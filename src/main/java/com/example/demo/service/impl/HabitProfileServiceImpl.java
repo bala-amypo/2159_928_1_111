@@ -25,25 +25,22 @@ public class HabitProfileServiceImpl implements HabitProfileService {
             throw new IllegalArgumentException("study hours must be >= 0");
         }
 
-        Optional<HabitProfile> existing =
-                habitRepo.findByStudentId(habit.getStudentId());
+        Optional<HabitProfile> existing = habitRepo.findByStudentId(habit.getStudentId());
 
         if (existing.isPresent()) {
-            HabitProfile existingHabit = existing.get();
-
-            existingHabit.setStudyHoursPerDay(habit.getStudyHoursPerDay());
-            existingHabit.setSleepSchedule(habit.getSleepSchedule());
-            existingHabit.setCleanlinessLevel(habit.getCleanlinessLevel());
-            existingHabit.setNoiseTolerance(habit.getNoiseTolerance());
-            existingHabit.setSocialPreference(habit.getSocialPreference());
-            existingHabit.setStudyStyle(habit.getStudyStyle());
-            existingHabit.setVisitorsFrequency(habit.getVisitorsFrequency());
-            existingHabit.setSmoking(habit.getSmoking());
-            existingHabit.setDrinking(habit.getDrinking());
-            existingHabit.setSleepTime(habit.getSleepTime());
-            existingHabit.setWakeTime(habit.getWakeTime());
-
-            return habitRepo.save(existingHabit);
+            HabitProfile h = existing.get();
+            h.setStudyHoursPerDay(habit.getStudyHoursPerDay());
+            h.setSleepSchedule(habit.getSleepSchedule());
+            h.setCleanlinessLevel(habit.getCleanlinessLevel());
+            h.setNoiseTolerance(habit.getNoiseTolerance());
+            h.setSocialPreference(habit.getSocialPreference());
+            h.setStudyStyle(habit.getStudyStyle());
+            h.setVisitorsFrequency(habit.getVisitorsFrequency());
+            h.setSmoking(habit.getSmoking());
+            h.setDrinking(habit.getDrinking());
+            h.setSleepTime(habit.getSleepTime());
+            h.setWakeTime(habit.getWakeTime());
+            return habitRepo.save(h);
         }
 
         return habitRepo.save(habit);

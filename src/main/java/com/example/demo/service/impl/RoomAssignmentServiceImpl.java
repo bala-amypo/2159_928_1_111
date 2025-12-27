@@ -24,12 +24,14 @@ public class RoomAssignmentServiceImpl implements RoomAssignmentService {
 
     @Override
     public RoomAssignmentRecord assignRoom(RoomAssignmentRecord assignment) {
-        StudentProfile studentA = studentRepo.findById(assignment.getStudentAId())
-                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
-        StudentProfile studentB = studentRepo.findById(assignment.getStudentBId())
+
+        StudentProfile a = studentRepo.findById(assignment.getStudentAId())
                 .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
 
-        if (!studentA.getActive() || !studentB.getActive()) {
+        StudentProfile b = studentRepo.findById(assignment.getStudentBId())
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
+
+        if (!a.getActive() || !b.getActive()) {
             throw new IllegalArgumentException("both students must be active");
         }
 
