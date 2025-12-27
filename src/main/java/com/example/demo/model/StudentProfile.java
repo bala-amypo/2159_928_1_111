@@ -1,55 +1,49 @@
-package com.example.demo.model;
+package com.example.demo.model; 
 
-import jakarta.persistence.*;
+import jakarta.persistence.*; 
 
-@Entity
-public class StudentProfile {
+@EnƟty 
+public class StudentProfile { 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    private Long id; 
 
-    private String name;
-    private int age;
-    private String course;
-    private int yearOfStudy;
-    private String gender;
-    private String roomTypePreference;
-    private boolean active = true;
+    private String studentId; 
+    private String name; 
+    private Integer age; 
+    private String course; 
+    private Integer yearOfStudy; 
+    private String gender; 
+    private String roomTypePreference; 
+    private Boolean acƟve; 
 
-    // Constructors
-    public StudentProfile() {}
-    public StudentProfile(String name, int age, String course, int yearOfStudy,
-                          String gender, String roomTypePreference) {
-        this.name = name;
-        this.age = age;
-        this.course = course;
-        this.yearOfStudy = yearOfStudy;
-        this.gender = gender;
-        this.roomTypePreference = roomTypePreference;
-        this.active = true;
-    }
+    public StudentProfile() {} 
 
-    // Getters & Setters
-    public Long getId() { return id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public Long getId() { return id; } 
+    public void setId(Long id) { this.id = id; } 
 
-    public int getAge() { return age; }
-    public void setAge(int age) { this.age = age; }
+    public String getStudentId() { return studentId; } 
+    public void setStudentId(String studentId) { this.studentId = studentId; } 
 
-    public String getCourse() { return course; }
-    public void setCourse(String course) { this.course = course; }
+    public String getName() { return name; } 
+    public void setName(String name) { this.name = name; } 
 
-    public int getYearOfStudy() { return yearOfStudy; }
-    public void setYearOfStudy(int yearOfStudy) { this.yearOfStudy = yearOfStudy; }
+    public Integer getAge() { return age; } 
+    public void setAge(Integer age) { this.age = age; } 
 
-    public String getGender() { return gender; }
-    public void setGender(String gender) { this.gender = gender; }
+    public String getCourse() { return course; } 
+    public void setCourse(String course) { this.course = course; } 
 
-    public String getRoomTypePreference() { return roomTypePreference; }
-    public void setRoomTypePreference(String roomTypePreference) { this.roomTypePreference = roomTypePreference; }
+    public Integer getYearOfStudy() { return yearOfStudy; } 
+    public void setYearOfStudy(Integer yearOfStudy) { this.yearOfStudy = yearOfStudy; } 
 
-    public boolean isActive() { return active; }
-    public void setActive(boolean active) { this.active = active; }
-}
+    public String getGender() { return gender; } 
+    public void setGender(String gender) { this.gender = gender; } 
+
+    public String getRoomTypePreference() { return roomTypePreference; } 
+    public void setRoomTypePreference(String roomTypePreference) { this.roomTypePreference = roomTypePreference; } 
+
+    public Boolean getAcƟve() { return acƟve; } 
+    public void setAcƟve(Boolean acƟve) { this.acƟve = acƟve; } 
+} 

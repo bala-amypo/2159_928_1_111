@@ -1,37 +1,29 @@
-package com.example.demo.model;
+package com.example.demo.model; 
 
-import jakarta.persistence.*;
+import jakarta.persistence.*; 
 
-@Entity
-@Table(name = "room_assignment_records")
-public class RoomAssignmentRecord {
+@EnƟty 
+public class RoomAssignmentRecord { 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    private Long id; 
 
-    @Column(name = "student_a_id")
-    private Long studentAId;
+    private Long studentId; 
+    private String roomNumber; 
+    private String status; 
 
-    @Column(name = "student_b_id")
-    private Long studentBId;
+    public RoomAssignmentRecord() {} 
 
-    @Column(name = "room_number")
-    private String roomNumber;
+    public Long getId() { return id; } 
+    public void setId(Long id) { this.id = id; } 
 
-    public RoomAssignmentRecord() {}
+    public Long getStudentId() { return studentId; } 
+    public void setStudentId(Long studentId) { this.studentId = studentId; } 
 
-    public RoomAssignmentRecord(Long studentAId, Long studentBId, String roomNumber) {
-        this.studentAId = studentAId;
-        this.studentBId = studentBId;
-        this.roomNumber = roomNumber;
-    }
+    public String getRoomNumber() { return roomNumber; } 
+    public void setRoomNumber(String roomNumber) { this.roomNumber = roomNumber; } 
 
-    public Long getId() { return id; }
-    public Long getStudentAId() { return studentAId; }
-    public void setStudentAId(Long studentAId) { this.studentAId = studentAId; }
-    public Long getStudentBId() { return studentBId; }
-    public void setStudentBId(Long studentBId) { this.studentBId = studentBId; }
-    public String getRoomNumber() { return roomNumber; }
-    public void setRoomNumber(String roomNumber) { this.roomNumber = roomNumber; }
-}
+    public String getStatus() { return status; } 
+    public void setStatus(String status) { this.status = status; } 
+} 
