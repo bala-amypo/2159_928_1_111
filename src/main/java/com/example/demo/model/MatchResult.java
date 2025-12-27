@@ -1,9 +1,7 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class MatchResult {
@@ -14,16 +12,14 @@ public class MatchResult {
 
     private Long studentAId;
     private Long studentBId;
-    private Integer compatibilityScore;
+
+    private Integer compatibilityScore; // 🔥 MUST EXIST
+
     private String status;
 
-    public MatchResult() {
-    }
+    private LocalDateTime createdAt;
 
-    public Long getId() {
-        return id;
-    }
-
+    // ✅ GETTERS & SETTERS (VERY IMPORTANT)
     public Long getStudentAId() {
         return studentAId;
     }
@@ -54,5 +50,13 @@ public class MatchResult {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
