@@ -13,21 +13,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService {
 
-    private final UserAccountRepository userAccountRepository;
+    private final UserAccountRepository userRepo;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-    public AuthService(UserAccountRepository userAccountRepository,
+    public AuthService(UserAccountRepository userRepo,
                        PasswordEncoder passwordEncoder,
                        JwtUtil jwtUtil) {
-        this.userAccountRepository = userAccountRepository;
+        this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
     }
 
     public AuthResponse register(AuthRequest request) {
 
-        if (userAccountRepository.findByEmail(request.getEmail()).isPresent()) {
+        if (userRepo.findByEmail(request.getEmail()).isPresent()) {
             throw new IllegalArgumentException("User already exists");
         }
 
@@ -37,7 +37,7 @@ public class AuthService {
         user.setRole(Role.USER);
         user.setActive(true);
 
-        user = userAccountRepository.save(user);
+        user = userRepo.save(user);
 
         String token = jwtUtil.generateToken(
                 user.getEmail(),
@@ -46,19 +46,13 @@ public class AuthService {
                 user.getId().toString()
         );
 
-        return new AuthResponse(
-                token,
-                user.getId(),
-                user.getEmail(),
-                user.getRole()
-        );
+        return new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
     }
 
     public AuthResponse login(AuthRequest request) {
 
-        UserAccount user = userAccountRepository.findByEmail(request.getEmail())
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("User not found"));
+        UserAccount user = userRepo.findByEmail(request.getEmail())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("Invalid credentials");
@@ -71,11 +65,6 @@ public class AuthService {
                 user.getId().toString()
         );
 
-        return new AuthResponse(
-                token,
-                user.getId(),
-                user.getEmail(),
-                user.getRole()
-        );
+        return new AuthResponse(token, user.getId(), user.getEmail(), user.getRole());
     }
 }
