@@ -5,6 +5,8 @@ import com.example.demo.repository.MatchAttemptRecordRepository;
 import com.example.demo.service.MatchAttemptService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MatchAttemptServiceImpl implements MatchAttemptService {
 
@@ -15,10 +17,14 @@ public class MatchAttemptServiceImpl implements MatchAttemptService {
     }
 
     @Override
-    public MatchAttemptRecord logMatchAttempt(MatchAttemptRecord record) {
-        if (record.getStatus() == null) {
-            record.setStatus("PENDING");
-        }
+    public MatchAttemptRecord updateAttemptStatus(long id, String status) {
+        MatchAttemptRecord record = repository.findById(id).orElseThrow();
+        record.setStatus(MatchAttemptRecord.Status.valueOf(status.toUpperCase()));
         return repository.save(record);
+    }
+
+    @Override
+    public List<MatchAttemptRecord> getAllMatchAttempts() {
+        return repository.findAll();
     }
 }
