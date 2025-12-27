@@ -3,7 +3,7 @@ package com.example.demo.model;
 import com.example.demo.security.Role; 
 import jakarta.persistence.*; 
 
-@EnƟty 
+@Entity 
 public class UserAccount { 
 
     @Id 

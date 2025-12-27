@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.*; 
 
-@EnƟty 
+@Entity 
 public class MatchResult { 
 
     @Id 

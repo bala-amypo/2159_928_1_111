@@ -20,7 +20,7 @@ public class SecurityConfig {
     private final JwtAuthenƟcaƟonFilter jwtAuthenƟcaƟonFilter; 
 
     public SecurityConfig(JwtAuthenƟcaƟonFilter jwtAuthenƟcaƟonFilter) { 
-        this.jwtAuthenƟcaƟonFilter = jwtAuthenƟcaƟonFilter; 
+        this.jwtAuthencaƟonFilter = jwtAuthenƟcaƟonFilter; 
     } 
 
     @Bean 
@@ -42,7 +42,7 @@ public class SecurityConfig {
             ) 
             .addFilterBefore(jwtAuthenƟcaƟonFilter, UsernamePasswordAuthenƟcaƟonFilter.class); 
 
-        return hƩp.build(); 
+        return hp.build(); 
     } 
 
     @Bean 

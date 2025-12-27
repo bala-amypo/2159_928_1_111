@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.Ɵme.LocalTime; 
 
-@Entty 
+@Entity 
 public class HabitProfile { 
 
     @Id 
