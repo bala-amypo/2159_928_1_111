@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.Ɵme.LocalDateTime; 
 
-@EnƟty 
+@Entity 
 public class MatchAƩemptRecord { 
 
     @Id 
