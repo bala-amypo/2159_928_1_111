@@ -11,16 +11,21 @@ public class HabitProfile {
 
     private Long studentId;
 
-    private String sleepTime;
+    @Enumerated(EnumType.STRING)
+    private CleanlinessLevel cleanlinessLevel;
 
-    private boolean smoking;
+    public enum CleanlinessLevel {
+        LOW, MEDIUM, HIGH
+    }
 
-    private boolean drinking;
-
-    private boolean studyLateNight;
+    public HabitProfile() {}
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getStudentId() {
@@ -31,35 +36,11 @@ public class HabitProfile {
         this.studentId = studentId;
     }
 
-    public String getSleepTime() {
-        return sleepTime;
+    public CleanlinessLevel getCleanlinessLevel() {
+        return cleanlinessLevel;
     }
 
-    public void setSleepTime(String sleepTime) {
-        this.sleepTime = sleepTime;
-    }
-
-    public boolean isSmoking() {
-        return smoking;
-    }
-
-    public void setSmoking(boolean smoking) {
-        this.smoking = smoking;
-    }
-
-    public boolean isDrinking() {
-        return drinking;
-    }
-
-    public void setDrinking(boolean drinking) {
-        this.drinking = drinking;
-    }
-
-    public boolean isStudyLateNight() {
-        return studyLateNight;
-    }
-
-    public void setStudyLateNight(boolean studyLateNight) {
-        this.studyLateNight = studyLateNight;
+    public void setCleanlinessLevel(CleanlinessLevel cleanlinessLevel) {
+        this.cleanlinessLevel = cleanlinessLevel;
     }
 }

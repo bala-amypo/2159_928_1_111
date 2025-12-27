@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 public class MatchAttemptRecord {
@@ -10,13 +9,11 @@ public class MatchAttemptRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long studentId;
-
-    private Long targetStudentId;
-
+    private Long studentAId;
+    private Long studentBId;
     private String status;
 
-    private LocalDateTime attemptedAt = LocalDateTime.now();
+    public MatchAttemptRecord() {}
 
     public Long getId() {
         return id;
@@ -26,20 +23,20 @@ public class MatchAttemptRecord {
         this.id = id;
     }
 
-    public Long getStudentId() {
-        return studentId;
+    public Long getStudentAId() {
+        return studentAId;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
+    public void setStudentAId(Long studentAId) {
+        this.studentAId = studentAId;
     }
 
-    public Long getTargetStudentId() {
-        return targetStudentId;
+    public Long getStudentBId() {
+        return studentBId;
     }
 
-    public void setTargetStudentId(Long targetStudentId) {
-        this.targetStudentId = targetStudentId;
+    public void setStudentBId(Long studentBId) {
+        this.studentBId = studentBId;
     }
 
     public String getStatus() {
@@ -48,13 +45,5 @@ public class MatchAttemptRecord {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public LocalDateTime getAttemptedAt() {
-        return attemptedAt;
-    }
-
-    public void setAttemptedAt(LocalDateTime attemptedAt) {
-        this.attemptedAt = attemptedAt;
     }
 }
