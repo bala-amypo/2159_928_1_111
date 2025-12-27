@@ -1,11 +1,11 @@
-package com.example.demo.repository;
+package com.example.demo.repository; 
 
-import com.example.demo.model.StudentProfile;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.model.StudentProfile; 
+import org.springframework.data.jpa.repository.JpaRepository; 
 
-import java.util.Optional;
+import java.uƟl.OpƟonal; 
 
-public interface StudentProfileRepository extends JpaRepository<StudentProfile, Long> {
-    Optional<StudentProfile> findByStudentId(String studentId);
-    Optional<StudentProfile> findByEmail(String email);
-}
+public interface StudentProfileRepository extends JpaRepository<StudentProfile, Long> { 
+
+    OpƟonal<StudentProfile> findByStudentId(String studentId); 
+} 
