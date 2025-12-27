@@ -4,7 +4,6 @@ import com.example.demo.model.MatchAttemptRecord;
 import com.example.demo.service.MatchAttemptService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/match-attempts")
@@ -17,24 +16,7 @@ public class MatchAttemptController {
     }
 
     @PostMapping
-    public ResponseEntity<MatchAttemptRecord> log(@RequestBody MatchAttemptRecord a) {
-        return ResponseEntity.ok(service.logMatchAttempt(a));
-    }
-
-    @PutMapping("/{id}/status")
-    public ResponseEntity<MatchAttemptRecord> update(
-            @PathVariable Long id,
-            @RequestParam String status) {
-        return ResponseEntity.ok(service.updateAttemptStatus(id, status));
-    }
-
-    @GetMapping("/student/{id}")
-    public ResponseEntity<List<MatchAttemptRecord>> getByStudent(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getAttemptsByStudent(id));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<MatchAttemptRecord>> getAll() {
-        return ResponseEntity.ok(service.getAllMatchAttempts());
+    public ResponseEntity<MatchAttemptRecord> log(@RequestBody MatchAttemptRecord attempt) {
+        return ResponseEntity.ok(service.logMatchAttempt(attempt));
     }
 }
