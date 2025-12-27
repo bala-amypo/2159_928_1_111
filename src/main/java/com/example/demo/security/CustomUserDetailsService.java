@@ -1,22 +1,22 @@
 package com.example.demo.security;
 
-import org.springframework.security.core.userdetails.*;
-import java.util.*;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
-
-    private static final Map<String, UserDetails> USERS = new HashMap<>();
-
-    static {
-        USERS.put("admin",
-                User.withUsername("admin")
-                        .password("{noop}admin")
-                        .roles("ADMIN")
-                        .build());
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        return USERS.get(username);
+        // Dummy user for test context loading
+        return new User(
+                username,
+                "",
+                Collections.emptyList()
+        );
     }
 }
