@@ -1,54 +1,64 @@
-package com.example.demo.dto; 
+package com.example.demo.dto;
 
-import jakarta.validaƟon.constraints.Max; 
-import jakarta.validaƟon.constraints.Min; 
+import java.time.LocalTime;
 
-import java.Ɵme.LocalTime; 
+public class HabitProfileDto {
 
-public class HabitProfileDto { 
-    private Boolean smoking; 
-    private Boolean drinking; 
-    private LocalTime sleepTime; 
-    private LocalTime wakeTime; 
+    private Long studentId;
+    private String sleepSchedule;
+    private String cleanlinessLevel;
+    private String smokingPreference;
+    private LocalTime wakeUpTime;
+    private LocalTime sleepTime;
 
-    @Min(value = 1, message = "Cleanliness level must be in range 1-5") 
-    @Max(value = 5, message = "Cleanliness level must be in range 1-5") 
-    private Integer cleanlinessLevel; 
+    public HabitProfileDto() {
+    }
 
-    @Min(value = 1, message = "Noise preference must be in range 1-5") 
-    @Max(value = 5, message = "Noise preference must be in range 1-5") 
-    private Integer noisePreference; 
+    public Long getStudentId() {
+        return studentId;
+    }
 
-    private String studyStyle; 
-    private String socialPreference; 
-    private String visitorsFrequency; 
+    public void setStudentId(Long studentId) {
+        this.studentId = studentId;
+    }
 
-    public HabitProfileDto() {} 
+    public String getSleepSchedule() {
+        return sleepSchedule;
+    }
 
-    public Boolean getSmoking() { return smoking; } 
-    public void setSmoking(Boolean smoking) { this.smoking = smoking; } 
+    public void setSleepSchedule(String sleepSchedule) {
+        this.sleepSchedule = sleepSchedule;
+    }
 
-    public Boolean getDrinking() { return drinking; } 
-    public void setDrinking(Boolean drinking) { this.drinking = drinking; } 
+    public String getCleanlinessLevel() {
+        return cleanlinessLevel;
+    }
 
-    public LocalTime getSleepTime() { return sleepTime; } 
-    public void setSleepTime(LocalTime sleepTime) { this.sleepTime = sleepTime; } 
+    public void setCleanlinessLevel(String cleanlinessLevel) {
+        this.cleanlinessLevel = cleanlinessLevel;
+    }
 
-    public LocalTime getWakeTime() { return wakeTime; } 
-    public void setWakeTime(LocalTime wakeTime) { this.wakeTime = wakeTime; } 
+    public String getSmokingPreference() {
+        return smokingPreference;
+    }
 
-    public Integer getCleanlinessLevel() { return cleanlinessLevel; } 
-    public void setCleanlinessLevel(Integer cleanlinessLevel) { this.cleanlinessLevel = cleanlinessLevel; } 
+    public void setSmokingPreference(String smokingPreference) {
+        this.smokingPreference = smokingPreference;
+    }
 
-    public Integer getNoisePreference() { return noisePreference; } 
-    public void setNoisePreference(Integer noisePreference) { this.noisePreference = noisePreference; } 
+    public LocalTime getWakeUpTime() {
+        return wakeUpTime;
+    }
 
-    public String getStudyStyle() { return studyStyle; } 
-    public void setStudyStyle(String studyStyle) { this.studyStyle = studyStyle; } 
+    public void setWakeUpTime(LocalTime wakeUpTime) {
+        this.wakeUpTime = wakeUpTime;
+    }
 
-    public String getSocialPreference() { return socialPreference; } 
-    public void setSocialPreference(String socialPreference) { this.socialPreference = socialPreference; } 
+    public LocalTime getSleepTime() {
+        return sleepTime;
+    }
 
-    public String getVisitorsFrequency() { return visitorsFrequency; } 
-    public void setVisitorsFrequency(String visitorsFrequency) { this.visitorsFrequency = visitorsFrequency; } 
-} 
+    public void setSleepTime(LocalTime sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+}

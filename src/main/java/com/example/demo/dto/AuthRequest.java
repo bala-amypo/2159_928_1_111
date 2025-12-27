@@ -1,31 +1,31 @@
-package com.example.demo.dto; 
+package com.example.demo.dto;
 
-import jakarta.validaƟon.constraints.Email; 
-import jakarta.validaƟon.constraints.NotBlank; 
+import jakarta.validation.constraints.NotBlank;
 
-public class AuthRequest { 
-    @NotBlank 
-    private String username; 
+public class AuthRequest {
 
-    @NotBlank 
-    private String password; 
+    @NotBlank
+    private String username;
 
-    @Email 
-    private String email; 
+    @NotBlank
+    private String password;
 
-    private String role; 
+    public AuthRequest() {
+    }
 
-    public AuthRequest() {} 
+    public String getUsername() {
+        return username;
+    }
 
-    public String getUsername() { return username; } 
-    public void setUsername(String username) { this.username = username; } 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public String getPassword() { return password; } 
-    public void setPassword(String password) { this.password = password; } 
+    public String getPassword() {
+        return password;
+    }
 
-    public String getEmail() { return email; } 
-    public void setEmail(String email) { this.email = email; } 
-
-    public String getRole() { return role; } 
-    public void setRole(String role) { this.role = role; } 
-} 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}

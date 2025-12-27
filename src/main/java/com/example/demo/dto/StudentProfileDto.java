@@ -1,63 +1,53 @@
-package com.example.demo.dto; 
+package com.example.demo.dto;
 
-import jakarta.validaƟon.constraints.Min; 
-import jakarta.validaƟon.constraints.NotBlank; 
+public class StudentProfileDto {
 
-import java.Ɵme.LocalTime; 
+    private String name;
+    private Integer age;
+    private String gender;
+    private String course;
+    private String preferences;
 
-public class StudentProfileDto { 
-    @NotBlank 
-    private String name; 
+    public StudentProfileDto() {
+    }
 
-    @Min(value = 1, message = "Age must be > 0") 
-    private Integer age; 
+    public String getName() {
+        return name;
+    }
 
-    private String course; 
-    private Integer yearOfStudy; 
-    private String gender; 
-    private String roomTypePreference; 
-    private LocalTime sleepTime; 
-    private LocalTime wakeTime; 
-    private Boolean smoking; 
-    private Boolean drinking; 
-    private Integer noiseTolerance; 
-    private String studyTime; 
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public StudentProfileDto() {} 
+    public Integer getAge() {
+        return age;
+    }
 
-    public String getName() { return name; } 
-    public void setName(String name) { this.name = name; } 
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
-    public Integer getAge() { return age; } 
-    public void setAge(Integer age) { this.age = age; } 
+    public String getGender() {
+        return gender;
+    }
 
-    public String getCourse() { return course; } 
-    public void setCourse(String course) { this.course = course; } 
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-    public Integer getYearOfStudy() { return yearOfStudy; } 
-    public void setYearOfStudy(Integer yearOfStudy) { this.yearOfStudy = yearOfStudy; } 
+    public String getCourse() {
+        return course;
+    }
 
-    public String getGender() { return gender; } 
-    public void setGender(String gender) { this.gender = gender; } 
+    public void setCourse(String course) {
+        this.course = course;
+    }
 
-    public String getRoomTypePreference() { return roomTypePreference; } 
-    public void setRoomTypePreference(String roomTypePreference) { this.roomTypePreference = roomTypePreference; } 
+    public String getPreferences() {
+        return preferences;
+    }
 
-    public LocalTime getSleepTime() { return sleepTime; } 
-    public void setSleepTime(LocalTime sleepTime) { this.sleepTime = sleepTime; } 
-
-    public LocalTime getWakeTime() { return wakeTime; } 
-    public void setWakeTime(LocalTime wakeTime) { this.wakeTime = wakeTime; } 
-
-    public Boolean getSmoking() { return smoking; } 
-    public void setSmoking(Boolean smoking) { this.smoking = smoking; } 
-
-    public Boolean getDrinking() { return drinking; } 
-    public void setDrinking(Boolean drinking) { this.drinking = drinking; } 
-
-    public Integer getNoiseTolerance() { return noiseTolerance; } 
-    public void setNoiseTolerance(Integer noiseTolerance) { this.noiseTolerance = noiseTolerance; } 
-
-    public String getStudyTime() { return studyTime; } 
-    public void setStudyTime(String studyTime) { this.studyTime = studyTime; } 
-} 
+    public void setPreferences(String preferences) {
+        this.preferences = preferences;
+    }
+}
