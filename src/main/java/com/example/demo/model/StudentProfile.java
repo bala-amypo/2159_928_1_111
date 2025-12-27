@@ -9,74 +9,24 @@ public class StudentProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private int age;
-    private String course;
-    private int yearOfStudy;
-    private String gender;
+    private String studentId;
+    private String email;
+    private String fullName;
+    private boolean active = true;
 
-    @Enumerated(EnumType.STRING)
-    private RoomTypePreference roomTypePreference;
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public enum RoomTypePreference {
-        SINGLE, SHARED
-    }
+    public String getStudentId() { return studentId; }
+    public void setStudentId(String studentId) { this.studentId = studentId; }
 
-    public StudentProfile() {}
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getCourse() {
-        return course;
-    }
-
-    public void setCourse(String course) {
-        this.course = course;
-    }
-
-    public int getYearOfStudy() {
-        return yearOfStudy;
-    }
-
-    public void setYearOfStudy(int yearOfStudy) {
-        this.yearOfStudy = yearOfStudy;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public RoomTypePreference getRoomTypePreference() {
-        return roomTypePreference;
-    }
-
-    public void setRoomTypePreference(RoomTypePreference roomTypePreference) {
-        this.roomTypePreference = roomTypePreference;
-    }
+    public boolean isActive() { return active; }
+    public boolean getActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 }

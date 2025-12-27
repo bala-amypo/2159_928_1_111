@@ -11,39 +11,21 @@ public class MatchAttemptRecord {
 
     private Long studentAId;
     private Long studentBId;
-    private String status;
 
-    public MatchAttemptRecord() {}
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
-    public Long getId() {
-        return id;
-    }
+    public enum Status { PENDING, ACCEPTED, REJECTED }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getStudentAId() {
-        return studentAId;
-    }
+    public Long getStudentAId() { return studentAId; }
+    public void setStudentAId(Long studentAId) { this.studentAId = studentAId; }
 
-    public void setStudentAId(Long studentAId) {
-        this.studentAId = studentAId;
-    }
+    public Long getStudentBId() { return studentBId; }
+    public void setStudentBId(Long studentBId) { this.studentBId = studentBId; }
 
-    public Long getStudentBId() {
-        return studentBId;
-    }
-
-    public void setStudentBId(Long studentBId) {
-        this.studentBId = studentBId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public Status getStatus() { return status; }
+    public void setStatus(Status status) { this.status = status; }
 }
