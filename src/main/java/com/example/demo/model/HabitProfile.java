@@ -11,15 +11,13 @@ public class HabitProfile {
     private Long id;
 
     private Long studentId;
-
     private Integer studyHoursPerDay;
     private String sleepSchedule;
     private Integer cleanlinessLevel;
     private Integer noiseTolerance;
     private String socialPreference;
-
     private LocalDateTime updatedAt;
-
+    
     // ===== GETTERS =====
 
     public Long getId() { return id; }
